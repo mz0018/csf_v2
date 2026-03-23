@@ -1,0 +1,23 @@
+{
+  "1": {"name": "Municipal Mayor's Office (MMO)"},
+  "2": {"name": "Municipal Social Welfare and Development Office (MSWDO)"},
+  "3": {"name": "Municipal Civil Registry Office (MCRO)"},
+  "4": {"name": "Municipal Assessor's Office (MAO)"},
+  "5": {"name": "Municipal Accounting Office (MACCO)"},
+  "6": {"name": "Municipal Treasury Office (MTO)"},
+  "7": {"name": "Municipal Engineering Office (MEO)"},
+  "8": {"name": "Business Permit and Licensing Section (BPLS)"},
+  "9": {"name": "Human Resource Management Office (HRMO)"},
+  "10": {"name": "Municipal Budget Office (MBO)"},
+  "11": {"name": "Municipal Planning and Development Office (MPDO)"},
+  "12": {"name": "Municipal Agriculture Office (MAGRO)"},
+  "13": {"name": "Municipal Health Office (MHO)"},
+  "14": {"name": "Municipal General Service Office (MGSO)"},
+  "15": {"name": "Municipal Disaster Risk Reduction Management Office (MDRRMO)"},
+  "16": {"name": "SEEDO-Market"},
+  "17": {"name": "SEEDO-Slaughter"},
+  "18": {"name": "Office of the Senior Citizen's Affairs (OSCA)"},
+  "19": {"name": "MMO-Tourism Section"},
+  "20": {"name": "MMO-Information and Technology Section"},
+  "21": {"name": "Municipal Other Office"}
+}
