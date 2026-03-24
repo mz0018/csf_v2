@@ -1,0 +1,3 @@
+Access to XMLHttpRequest at 'http://127.0.0.1:8000/qrcodes' from origin 'http://localhost:5173' has been blocked by CORS policy: The value of the 'Access-Control-Allow-Credentials' header in the response is '' which must be 'true' when the request's credentials mode is 'include'. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.
+usePrintOfficeQr.jsx:16 Something went wrong:  AxiosError: Network Error
+    at async handlePrinting (usePrintOfficeQr.jsx:13:30)
