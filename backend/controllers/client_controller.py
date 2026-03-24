@@ -20,9 +20,9 @@ def feedback():
 
 @router.get("/qrcodes")
 def get_qrcodes():
-    # qr = QRCode()
-    # files = qr.generate_all_qrcode()
-    # return {"generated": len(files), "files": files}
+    qr = QRCode()
+    files = qr.generate_all_qrcode()
+    return {"generated": len(files), "files": files}
     return { "message": "button print is working!"}
 
 # @router.get("/qrcode/{office_id}")

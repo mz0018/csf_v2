@@ -12,6 +12,7 @@ export const usePrintOfficeQr = () => {
         try {
             const response = await api.get('/qrcodes')
             console.log('Qr codes: ', response.data.message)
+            alert('Genrated successfully!')
         } catch (err) {
             console.error('Something went wrong: ', err)
             debugger;
