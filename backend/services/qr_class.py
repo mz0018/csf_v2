@@ -32,3 +32,20 @@ class QRCode:
             generated_files.append(filename)
 
         return generated_files
+
+    def get_all_qrcode(self):
+        results = []
+
+        for office_id, data in self.offices.items():
+            safe_name = "".join(c if c.isalnum() else "_" for c in data["name"])
+            filename = f"{office_id}_{safe_name}.png"
+            filepath = os.path.join(self.output_dir, filename)
+
+            if os.path.exists(filepath):
+                results.append({
+                    "office_id": office_id,
+                    "name": data["name"],
+                    "file": filepath
+                })
+
+        return results

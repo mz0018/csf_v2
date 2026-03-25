@@ -11,8 +11,8 @@ export const usePrintOfficeQr = () => {
         setIsLoading(true)
         try {
             const response = await api.get('/qrcodes')
-            console.log('Qr codes: ', response.data.message)
-            alert('Genrated successfully!')
+            console.log('Qr codes: ', response.data.files)
+            alert(`Generated ${response.data.generated} QR codes!`)
         } catch (err) {
             console.error('Something went wrong: ', err)
             debugger;

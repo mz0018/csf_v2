@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from fastapi.responses import FileResponse
 import os
 
@@ -19,11 +19,26 @@ def feedback():
     return {"message": "Install fucking postgres and finished this shit!"}
 
 @router.get("/qrcodes")
-def get_qrcodes():
+def print_qrcodes():
     qr = QRCode()
     files = qr.generate_all_qrcode()
-    return {"generated": len(files), "files": files}
-    return { "message": "button print is working!"}
+    return {
+        "generated": len(files), "files": files}
+
+@router.get("/qrOffices")
+def get_qrcodes(request: Request):
+    files = os.listdir("qrcodes")
+    
+    result = []
+
+    for i, file in enumerate(files):
+        result.append({
+            "office_id": file.split("_")[0],
+            "name": file.replace("_", " ").replace(".png", ""),
+            "file": file,
+            "url": f"{request.base_url}qrcodes/{file}"
+        })
+    return { "images": result }
 
 # @router.get("/qrcode/{office_id}")
 # def get_qrcode(office_id: str):

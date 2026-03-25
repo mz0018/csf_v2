@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from controllers import client_controller
 
@@ -7,6 +8,8 @@ app = FastAPI(
     description="Refactored version optimized",
     version="2.0.0"
 )
+
+app.mount("/qrcodes", StaticFiles(directory="qrcodes"), name="qrcodes")
 
 app.add_middleware(
     CORSMiddleware,
