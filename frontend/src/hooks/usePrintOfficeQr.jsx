@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { api } from '../services/api'
 
-export const usePrintOfficeQr = () => {
+export const usePrintOfficeQr = ({ setIsGenerated }) => {
 
     const [isLoading, setIsLoading] = useState(false)
     // const [qrData, setQrData] = useState(null)
@@ -13,9 +13,9 @@ export const usePrintOfficeQr = () => {
             const response = await api.get('/qrcodes')
             console.log('Qr codes: ', response.data.files)
             alert(`Generated ${response.data.generated} QR codes!`)
+            setIsGenerated(true)
         } catch (err) {
             console.error('Something went wrong: ', err)
-            debugger;
         } finally {
             setIsLoading(false)
         }

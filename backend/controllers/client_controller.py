@@ -27,7 +27,13 @@ def print_qrcodes():
 
 @router.get("/qrOffices")
 def get_qrcodes(request: Request):
-    files = os.listdir("qrcodes")
+
+    qr_dir = "qrcodes"
+
+    if not os.path.exists(qr_dir):
+        return { "images": [], "message": "No QR codes generated yet. Click 'Generate' to create them."}
+
+    files = sorted(os.listdir("qrcodes"), key=lambda x: int(x.split("_")[0]))
     
     result = []
 
