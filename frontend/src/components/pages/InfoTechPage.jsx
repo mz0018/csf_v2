@@ -10,7 +10,11 @@ export const InfoTechPage = () => {
     useEffect(() => {
         const checkQR = async () => {
             const res = await api.get('/qrOffices')
-            if (res.data.images.length > 0) {
+
+            const hasLocal = res.data.local?.length > 0
+            const hasRemote = res.data.remote?.length > 0
+
+            if (hasLocal || hasRemote) {
                 setIsGenerated(true)
             }
         }

@@ -18,41 +18,56 @@ def save_feedback():
 def feedback():
     return {"message": "Install fucking postgres and finished this shit!"}
 
-@router.get("/qrcodes")
-def print_qrcodes():
+@router.get("/qrcodes/local")
+def generate_local_qrcodes():
     qr = QRCode()
-    files = qr.generate_all_qrcode()
-    return {
-        "generated": len(files), "files": files}
+    files = qr.generate_all_local()
+    return { "generated": len(files), "files": files, "type": "local" }
+
+@router.get("/qrcodes/remote")
+def generate_remote_qrcodes():
+    qr = QRCode()
+    files = qr.generate_all_remote()
+    return { "generated": len(files), "files": files, "type": "remote" }
 
 @router.get("/qrOffices")
 def get_qrcodes(request: Request):
-
-    qr_dir = "qrcodes"
-
-    if not os.path.exists(qr_dir):
-        return { "images": [], "message": "No QR codes generated yet. Click 'Generate' to create them."}
-
-    files = sorted(os.listdir("qrcodes"), key=lambda x: int(x.split("_")[0]))
+    qr = QRCode()
     
-    result = []
+    local_qrs = qr.get_all_qrcode("local")
+    remote_qrs = qr.get_all_qrcode("remote")
+    
+    def build_result(qr_list, qr_type):
+        result = []
+        for item in qr_list:
+            result.append({
+                "office_id": item["office_id"],
+                "name": item["name"],
+                "file": item["file"],
+                "url": f"{request.base_url}qrcodes/{qr_type}/{os.path.basename(item['file'])}",
+                "target_url": item["url"],
+                "type": qr_type
+            })
+        return result
+    
+    return {
+        "local": build_result(local_qrs, "local"),
+        "remote": build_result(remote_qrs, "remote")
+    }
 
-    for i, file in enumerate(files):
-        result.append({
-            "office_id": file.split("_")[0],
-            "name": file.replace("_", " ").replace(".png", ""),
-            "file": file,
-            "url": f"{request.base_url}qrcodes/{file}"
-        })
-    return { "images": result }
-
-# @router.get("/qrcode/{office_id}")
-# def get_qrcode(office_id: str):
-#     qr = QRCode()
-#     for office_id_key, data in qr.offices.items():
-#         if office_id_key == office_id:
-#             safe_name = "".join(c if c.isalnum() else "_" for c in data["name"])
-#             filename = os.path.join(qr.output_dir, f"{office_id}_{safe_name}.png")
-#             if os.path.exists(filename):
-#                 return FileResponse(filename, media_type="image/png")
-#     return {"error": "Office not found"}
+@router.get("/qrcode/{office_id}")
+def get_qrcode(office_id: str, request: Request, type: str = "local"):
+    qr = QRCode()
+    qr_list = qr.get_all_qrcode(type)
+    
+    for item in qr_list:
+        if item["office_id"] == office_id:
+            return {
+                "office_id": item["office_id"],
+                "name": item["name"],
+                "url": item["url"],
+                "target_url": item["url"],
+                "type": type
+            }
+    
+    return {"error": "Office not found"}

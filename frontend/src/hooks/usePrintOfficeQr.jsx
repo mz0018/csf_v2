@@ -4,15 +4,19 @@ import { api } from '../services/api'
 export const usePrintOfficeQr = ({ setIsGenerated }) => {
 
     const [isLoading, setIsLoading] = useState(false)
-    // const [qrData, setQrData] = useState(null)
-    // const [hasError, setHasError] = useState(null)
 
     const handlePrinting = async () => {
         setIsLoading(true)
         try {
-            const response = await api.get('/qrcodes')
-            console.log('Qr codes: ', response.data.files)
-            alert(`Generated ${response.data.generated} QR codes!`)
+            const [localRes, remoteRes] = await Promise.all([
+                api.get('/qrcodes/local'),
+                api.get('/qrcodes/remote')
+            ])
+            
+            const totalGenerated = localRes.data.generated + remoteRes.data.generated
+            console.log('Local QR codes: ', localRes.data.files)
+            console.log('Remote QR codes: ', remoteRes.data.files)
+            alert(`Generated ${totalGenerated} QR codes! (${localRes.data.generated} local, ${remoteRes.data.generated} remote)`)
             setIsGenerated(true)
         } catch (err) {
             console.error('Something went wrong: ', err)
