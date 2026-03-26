@@ -19,7 +19,7 @@ app.mount("/qrcodes/remote", StaticFiles(directory="qrcodes/remote"), name="qrco
 app.add_middleware(
     CORSMiddleware,
     # allow_origins=["http://192.168.3.104"],
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173","http://192.168.3.104"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -1,10 +1,16 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import FileResponse
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 
 from services.qr_class import QRCode
 
 router = APIRouter()
+
+BASE_URL_LOCAL = os.getenv("BASE_URL_LOCAL")
+BASE_URL_REMOTE = os.getenv("BASE_URL_REMOTE")
 
 @router.get("/client")
 def hello():
@@ -39,13 +45,14 @@ def get_qrcodes(request: Request):
     
     def build_result(qr_list, qr_type):
         result = []
+        base_url = BASE_URL_LOCAL if qr_type == "local" else BASE_URL_REMOTE
         for item in qr_list:
             result.append({
                 "office_id": item["office_id"],
                 "name": item["name"],
                 "file": item["file"],
-                "url": f"{request.base_url}qrcodes/{qr_type}/{os.path.basename(item['file'])}",
-                "target_url": item["url"],
+                "url": f"{base_url}/qrcodes/{qr_type}/{os.path.basename(item['file'])}",
+                "target_url": f"{base_url}/{item['office_id']}",
                 "type": qr_type
             })
         return result
@@ -59,14 +66,16 @@ def get_qrcodes(request: Request):
 def get_qrcode(office_id: str, request: Request, type: str = "local"):
     qr = QRCode()
     qr_list = qr.get_all_qrcode(type)
+
+    base_url = BASE_URL_LOCAL if type == "local" else BASE_URL_REMOTE
     
     for item in qr_list:
         if item["office_id"] == office_id:
             return {
                 "office_id": item["office_id"],
                 "name": item["name"],
-                "url": item["url"],
-                "target_url": item["url"],
+                "url": f"{base_url}/qrcodes/{type}/{os.path.basename(item['file'])}",
+                "target_url": f"{base_url}/{office_id}",
                 "type": type
             }
     
