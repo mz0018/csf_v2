@@ -1,4 +1,4 @@
-export const FeedbackFormPage = () => {
+const ClientFeedbackForm = () => {
 
     return (
         <>
@@ -6,3 +6,5 @@ export const FeedbackFormPage = () => {
         </>
     )
 }
+
+export default ClientFeedbackForm

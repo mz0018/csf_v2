@@ -1,14 +1,8 @@
-import { PrintOfficeQr } from "./components/buttons/PrintOfficeQr";
-import { OfficeQR } from "./components/sections/OfficeQRs";
-
-import { InfoTechPage } from "./components/pages/InfoTechPage";
-import { FeedbackFormPage } from "./components/pages/FeedbackFormPage";
-
 const App = () => {
 
   return (
     <>
-      <InfoTechPage />
+      Hello this is the index for client!
     </>
   )
 }

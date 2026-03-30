@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
-import { api } from "../../services/api"
+import { api } from "../../../services/api"
 
-import { PrintOfficeQr } from "../buttons/PrintOfficeQr"
-import { OfficeQR } from "../sections/OfficeQRs"
+import { PrintOfficeQr } from "../../buttons/PrintOfficeQr"
+import { OfficeQR } from "../../sections/OfficeQRs"
 
-export const InfoTechPage = () => {
+const InfoTechPage = () => {
     const [isGenerated, setIsGenerated] = useState(false);
 
     useEffect(() => {
@@ -28,3 +28,5 @@ export const InfoTechPage = () => {
         </>
     )
 }
+
+export default InfoTechPage
