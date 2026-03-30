@@ -62,21 +62,41 @@ def get_qrcodes(request: Request):
         "remote": build_result(remote_qrs, "remote")
     }
 
-@router.get("/qrcode/{office_id}")
-def get_qrcode(office_id: str, request: Request, type: str = "local"):
-    qr = QRCode()
-    qr_list = qr.get_all_qrcode(type)
 
-    base_url = BASE_URL_LOCAL if type == "local" else BASE_URL_REMOTE
+@router.get("/office/{office_id}")
+def get_specific_office(office_id: str):
+    import json
+    from pathlib import Path
+
+    offices_file = Path(__file__).parent.parent / "offices.json"
+    with open(offices_file, "r") as f:
+        offices = json.load(f)
+
+    office = offices.get(office_id)
+    if office:
+        return {
+            "office_id": office_id,
+            "name": office.get("name")
+        }
+    return { "error": "Office not found" }
+
+
+# @router.get("/qrcode/{office_id}")
+# def get_qrcode(office_id: str, request: Request, type: str = "local"):
+#     qr = QRCode()
+#     qr_list = qr.get_all_qrcode(type)
+
+#     base_url = BASE_URL_LOCAL if type == "local" else BASE_URL_REMOTE
     
-    for item in qr_list:
-        if item["office_id"] == office_id:
-            return {
-                "office_id": item["office_id"],
-                "name": item["name"],
-                "url": f"{base_url}/qrcodes/{type}/{os.path.basename(item['file'])}",
-                "target_url": f"{base_url}/{office_id}",
-                "type": type
-            }
+#     for item in qr_list:
+#         if item["office_id"] == office_id:
+#             return {
+#                 "office_id": item["office_id"],
+#                 "name": item["name"],
+#                 "url": f"{base_url}/qrcodes/{type}/{os.path.basename(item['file'])}",
+#                 "target_url": f"{base_url}/{office_id}",
+#                 "type": type
+#             }
     
-    return {"error": "Office not found"}
+#     return {"error": "Office not found"}
+
