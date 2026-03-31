@@ -76,7 +76,8 @@ def get_specific_office(office_id: str):
     if office:
         return {
             "office_id": office_id,
-            "name": office.get("name")
+            "name": office.get("name"),
+            "services": office.get("services", [])
         }
     return { "error": "Office not found" }
 
