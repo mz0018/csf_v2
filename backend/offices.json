@@ -1,22 +1,91 @@
 {
-  "1": {"name": "Municipal Mayor's Office (MMO)"},
+  "1": {
+    "name": "Municipal Mayor's Office (MMO)",
+    "services": [
+      "Request for Mayor’s Clearance (Work Employment / Immersion, Fidelity Bond Renewal)",
+      "Request for Financial and Material Assistance",
+      "Request for Marriage Schedule",
+      "Request for Venue (TDCC, Pasalubong Center)",
+      "Request for Permit to Construct Tomb",
+      "Request for Certificate of Unemployment"
+    ]
+  },
   "2": {"name": "Municipal Social Welfare and Development Office (MSWDO)"},
   "3": {"name": "Municipal Civil Registry Office (MCRO)"},
   "4": {"name": "Municipal Assessor's Office (MAO)"},
   "5": {"name": "Municipal Accounting Office (MACCO)"},
   "6": {"name": "Municipal Treasury Office (MTO)"},
   "7": {"name": "Municipal Engineering Office (MEO)"},
-  "8": {"name": "Business Permit and Licensing Section (BPLS)"},
+  "8": {
+    "name": "Business Permit and Licensing Section (BPLS)",
+    "services": [
+      "Business Permit",
+      "Tricycle Permit",
+      "Release of Business Permit",
+      {
+        "name": "Special Permit",
+        "sub_services": [
+          "Trucking",
+          "Farm Machineries",
+          "Transient Vendors"
+        ]
+      },
+      "Occupational Permit" 
+    ]
+  },
   "9": {"name": "Human Resource Management Office (HRMO)"},
-  "10": {"name": "Municipal Budget Office (MBO)"},
+  "10": {
+    "name": "Municipal Budget Office (MBO)",
+    "services": [
+      "Processing of Obligation Request"
+    ]
+  },
   "11": {"name": "Municipal Planning and Development Office (MPDO)"},
   "12": {"name": "Municipal Agriculture Office (MAGRO)"},
-  "13": {"name": "Municipal Health Office (MHO)"},
-  "14": {"name": "Municipal General Service Office (MGSO)"},
+  "13": {
+    "name": "Municipal Health Office (MHO)",
+    "services": [
+      "Medical Consultation",
+      "Laboratory Services",
+      "Pharmacy Services",
+      "Dental Services",
+      "Request for Medical Certificate",
+      "Issuance of Sanitary Permit and Health Card",
+      "Issuance of Exhumation and Transfer Permit",
+      "Issuance of Death Certificate",
+      "Management of Animal Bite",
+      "Tuberculosis Control Services",
+      "Nutrition Services",
+      "Childbirth / Delivery Services (BEMONC Lying-in)",
+      "Medico-Legal Services",
+      "Veterinary Services",
+      "Other Services (please specify)"
+    ]
+  },
+  "14": {
+    "name": "Municipal General Service Office (MGSO)",
+    "services": [
+      "Request for Zoning Certificate (Business)",
+      "Request for Zoning Certificate (Land Classification)",
+      "Request for Locational Clearance",
+      "Request for Data/ Reference Materials",
+      "Request for Copies of Municipal Plans (e-copy)",
+      "Request for Computer Generated Maps",
+      "Request for void/ correction of data entry | ETRACS",
+      "Request for Driver's Trip Ticket"
+    ]
+  },
   "15": {"name": "Municipal Disaster Risk Reduction Management Office (MDRRMO)"},
   "16": {"name": "SEEDO-Market"},
   "17": {"name": "SEEDO-Slaughter"},
   "18": {"name": "Office of the Senior Citizen's Affairs (OSCA)"},
   "19": {"name": "MMO-Tourism Section"},
-  "20": {"name": "MMO-Information and Technology Section"}
+  "20": {
+    "name": "MMO-Information and Technology Section",
+    "services": [
+        "Request for tarpaulin layout",
+        "Request for computer hardware repair",
+        "ICT preventive maintenance"
+      ]
+  }
 }
