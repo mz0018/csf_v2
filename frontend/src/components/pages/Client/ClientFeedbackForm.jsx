@@ -1,4 +1,3 @@
-import { lazy, useState } from 'react'
 import { ClientFormUI } from '../../ui/ClientFormUI'
 import { useFetchSpecificOffice } from './../../../hooks/useFetchSpecificOffice'
 import { useSendFeedback } from '../../../hooks/useSendFeedback'
@@ -6,7 +5,7 @@ import { useSendFeedback } from '../../../hooks/useSendFeedback'
 import { Buttons } from '../../ui/Buttons'
 import { Inputs } from '../../ui/Inputs'
 
-const ClientDemographicForm = lazy(() => import('./ClientDemographicForm'))
+import ClientDemographicForm from './ClientDemographicForm'
 
 const ClientFeedbackForm = () => {
 
