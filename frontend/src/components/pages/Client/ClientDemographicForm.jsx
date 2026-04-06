@@ -1,3 +1,5 @@
+import { Inputs } from '../../ui/Inputs'
+
 const ClientDemographicForm = ({ formData, setFormData }) => {
   const Affiliation = ["General Public", "Government (Within LGU)", "Government (Other Offices/Agencies)"];
   const AgeGroup = ["17 and below", "18-29", "30-39", "40-49", "50-59", "60 and above"];
@@ -17,7 +19,7 @@ const ClientDemographicForm = ({ formData, setFormData }) => {
         {Affiliation.map((aff, i) => (
           <li key={i}>
             <label>
-              <input
+              <Inputs
                 type="radio"
                 name="affiliation"
                 value={aff}
@@ -35,7 +37,7 @@ const ClientDemographicForm = ({ formData, setFormData }) => {
         {AgeGroup.map((age, i) => (
           <li key={i}>
             <label>
-              <input
+              <Inputs
                 type="radio"
                 name="age"
                 value={age}
@@ -53,7 +55,7 @@ const ClientDemographicForm = ({ formData, setFormData }) => {
         {Sex.map((sex, i) => (
           <li key={i}>
             <label>
-              <input
+              <Inputs
                 type="radio"
                 name="sex"
                 value={sex}
@@ -71,7 +73,7 @@ const ClientDemographicForm = ({ formData, setFormData }) => {
         {Address.map((addr, i) => (
           <li key={i}>
             <label>
-              <input
+              <Inputs
                 type="radio"
                 name="address"
                 value={addr}
@@ -89,7 +91,7 @@ const ClientDemographicForm = ({ formData, setFormData }) => {
         {Employment_Status.map((emp, i) => (
           <li key={i}>
             <label>
-              <input
+              <Inputs
                 type="radio"
                 name="employment_status"
                 value={emp}

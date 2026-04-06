@@ -4,6 +4,7 @@ import { useFetchSpecificOffice } from './../../../hooks/useFetchSpecificOffice'
 import { useSendFeedback } from '../../../hooks/useSendFeedback'
 
 import { Buttons } from '../../ui/Buttons'
+import { Inputs } from '../../ui/Inputs'
 
 const ClientDemographicForm = lazy(() => import('./ClientDemographicForm'))
 
@@ -21,25 +22,25 @@ const ClientFeedbackForm = () => {
         
             <form onSubmit={handleSubmit}>
                 {data.services?.length > 0 && (
-                    <ul className="space-y-2">
+                    <ul>
                     {data.services.map((service, index) => (
                         <li key={index}>
                         {typeof service === 'string' ? (
-                            <label className="flex items-center gap-2 cursor-pointer">
-                            <input
-                                type="radio"
-                                name="service"
-                                checked={formData.selectedService === service}
-                                onChange={() =>
-                                setFormData(prev => ({ ...prev, selectedService: service }))
-                                }
-                            />
-                            {service}
+                            <label>
+                                <Inputs
+                                    type="radio"
+                                    name="service"
+                                    checked={formData.selectedService === service}
+                                    onChange={() =>
+                                        setFormData(prev => ({ ...prev, selectedService: service }))
+                                    }
+                                />
+                                {service}
                             </label>
                         ) : (
                             <>
-                            <label className="flex items-center gap-2 cursor-pointer font-medium">
-                                <input
+                            <label>
+                                <Inputs
                                 type="radio"
                                 name="service"
                                 checked={formData.selectedService === service.name}
@@ -54,8 +55,8 @@ const ClientFeedbackForm = () => {
                                 <ul className="pl-6 space-y-1">
                                 {service.sub_services.map((sub, i) => (
                                     <li key={i}>
-                                    <label className="flex items-center gap-2 cursor-pointer">
-                                        <input
+                                    <label>
+                                        <Inputs
                                         type="radio"
                                         name="service"
                                         checked={formData.selectedService === sub}
