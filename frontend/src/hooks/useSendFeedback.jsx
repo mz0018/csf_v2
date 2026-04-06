@@ -71,10 +71,10 @@ export const useSendFeedback = () => {
         setLoadingFeedback(true)
         try {
             console.log(formData)
+            alert('Feedback sent successfully')
             resetForm()
         } catch (err) {
-            console.error()
-            debugger;
+            console.error('Something went wrong! ', err)
         } finally {
             setLoadingFeedback(false)
         }

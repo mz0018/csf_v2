@@ -9,13 +9,17 @@ const InfoTechPage = () => {
 
     useEffect(() => {
         const checkQR = async () => {
-            const res = await api.get('/qrOffices')
+            try {
+                const res = await api.get('/qrOffices')
 
-            const hasLocal = res.data.local?.length > 0
-            const hasRemote = res.data.remote?.length > 0
+                const hasLocal = res.data.local?.length > 0
+                const hasRemote = res.data.remote?.length > 0
 
-            if (hasLocal || hasRemote) {
-                setIsGenerated(true)
+                if (hasLocal || hasRemote) {
+                    setIsGenerated(true)
+                }
+            } catch (err) {
+                console.log('Failed to fetch QR data: ', err)
             }
         }
         checkQR()

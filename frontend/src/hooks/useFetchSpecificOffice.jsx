@@ -15,7 +15,6 @@ export const useFetchSpecificOffice = () => {
             console.log('DATA: ', response.data)
         } catch (err) {
             console.error('Something went wrong: ', err)
-            debugger
         } finally {
             setLoading(false)
         }
