@@ -11,6 +11,7 @@ export const useSendFeedback = () => {
         age: '',
         sex: '',
         address: '',
+        specific_location: '',
         employment_status: ''
     })
 
@@ -31,7 +32,7 @@ export const useSendFeedback = () => {
             return 'Please select sex';
         }
 
-        if (!formData.address) {
+        if (formData.address === "Within Solano" && !formData.specific_location) {
             return 'Please select address';
         }
 
@@ -49,6 +50,7 @@ export const useSendFeedback = () => {
             age: '',
             sex: '',
             address: '',
+            specific_location: '',
             employment_status: ''
         };
 
