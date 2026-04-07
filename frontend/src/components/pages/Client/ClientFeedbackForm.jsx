@@ -13,75 +13,80 @@ const ClientFeedbackForm = () => {
 
     const { handleSubmit, loadingFeedback, formData, setFormData } = useSendFeedback()
 
-    if (loading) return <>Loading...</>
-    if (!data || data.error) return <>404 Office not found</>
-
     return (
-        <ClientFormUI title={data.name}>
-        
-            <form onSubmit={handleSubmit}>
-                {data.services?.length > 0 && (
-                    <ul>
-                    {data.services.map((service, index) => (
-                        <li key={index}>
-                        {typeof service === 'string' ? (
-                            <label>
-                                <Inputs
-                                    type="radio"
-                                    name="service"
-                                    checked={formData.selectedService === service}
-                                    onChange={() =>
-                                        setFormData(prev => ({ ...prev, selectedService: service }))
-                                    }
-                                />
-                                {service}
-                            </label>
-                        ) : (
-                            <>
-                            <label>
-                                <Inputs
-                                type="radio"
-                                name="service"
-                                checked={formData.selectedService === service.name}
-                                onChange={() =>
-                                    setFormData(prev => ({ ...prev, selectedService: service.name }))
-                                }
-                                />
-                                {service.name}
-                            </label>
-
-                            {service.sub_services?.length > 0 && (
-                                <ul className="pl-6 space-y-1">
-                                {service.sub_services.map((sub, i) => (
-                                    <li key={i}>
-                                    <label>
-                                        <Inputs
+        <>
+            {loading ? (
+                <>Loading...</>
+            ) : !data || data.error ? (
+                <>404 Office not found</>
+            ) : (
+                <ClientFormUI title={data.name}>
+            
+                <form onSubmit={handleSubmit}>
+                    {data.services?.length > 0 && (
+                        <ul>
+                        {data.services.map((service, index) => (
+                            <li key={index}>
+                            {typeof service === 'string' ? (
+                                <label>
+                                    <Inputs
                                         type="radio"
                                         name="service"
-                                        checked={formData.selectedService === sub}
+                                        checked={formData.selectedService === service}
                                         onChange={() =>
-                                            setFormData(prev => ({ ...prev, selectedService: sub }))
+                                            setFormData(prev => ({ ...prev, selectedService: service }))
                                         }
-                                        />
-                                        {sub}
-                                    </label>
-                                    </li>
-                                ))}
-                                </ul>
+                                    />
+                                    {service}
+                                </label>
+                            ) : (
+                                <>
+                                <label>
+                                    <Inputs
+                                    type="radio"
+                                    name="service"
+                                    checked={formData.selectedService === service.name}
+                                    onChange={() =>
+                                        setFormData(prev => ({ ...prev, selectedService: service.name }))
+                                    }
+                                    />
+                                    {service.name}
+                                </label>
+
+                                {service.sub_services?.length > 0 && (
+                                    <ul className="pl-6 space-y-1">
+                                    {service.sub_services.map((sub, i) => (
+                                        <li key={i}>
+                                        <label>
+                                            <Inputs
+                                            type="radio"
+                                            name="service"
+                                            checked={formData.selectedService === sub}
+                                            onChange={() =>
+                                                setFormData(prev => ({ ...prev, selectedService: sub }))
+                                            }
+                                            />
+                                            {sub}
+                                        </label>
+                                        </li>
+                                    ))}
+                                    </ul>
+                                )}
+                                </>
                             )}
-                            </>
-                        )}
-                        </li>
-                    ))}
-                    </ul>
-                )}
+                            </li>
+                        ))}
+                        </ul>
+                    )}
 
-                <ClientDemographicForm formData={formData} setFormData={setFormData} />
+                    <ClientDemographicForm formData={formData} setFormData={setFormData} />
 
-                <Buttons type="submit">{loadingFeedback ? 'Submitting..' : 'Submit Feedback'}</Buttons>
-            </form>
+                    <Buttons type="submit">{loadingFeedback ? 'Submitting..' : 'Submit Feedback'}</Buttons>
+                </form>
 
-        </ClientFormUI>
+                </ClientFormUI>
+            )}
+        </>
     )
 }
 

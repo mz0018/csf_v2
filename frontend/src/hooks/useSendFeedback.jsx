@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useLocalStorage } from './useLocalStorage'
+import { useUserId } from './useUserId'
 
 export const useSendFeedback = () => {
 
@@ -14,6 +15,8 @@ export const useSendFeedback = () => {
         specific_location: '',
         employment_status: ''
     })
+
+    const userId = useUserId()
 
     const validateForm = () => {
         if (!formData.selectedService) {
@@ -71,6 +74,7 @@ export const useSendFeedback = () => {
         setLoadingFeedback(true)
         try {
             console.log(formData)
+            console.log('Cookie: ', userId)
             alert('Feedback sent successfully')
             resetForm()
         } catch (err) {
