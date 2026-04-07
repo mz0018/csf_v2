@@ -71,6 +71,11 @@ export const useSendFeedback = () => {
             return
         }
 
+        if (!userId) {
+            alert('User ID not found. Please refresh the page and try again.')
+            return
+        }
+
         setLoadingFeedback(true)
         try {
             console.log(formData)
