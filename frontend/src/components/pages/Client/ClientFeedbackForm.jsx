@@ -11,7 +11,7 @@ const ClientFeedbackForm = () => {
 
     const { loading, data } = useFetchSpecificOffice()
 
-    const { handleSubmit, loadingFeedback, formData, setFormData } = useSendFeedback()
+    const { handleSubmit, loadingFeedback, formData, setFormData, userId } = useSendFeedback()
 
     return (
         <>
@@ -83,6 +83,8 @@ const ClientFeedbackForm = () => {
 
                     <Buttons type="submit">{loadingFeedback ? 'Submitting..' : 'Submit Feedback'}</Buttons>
                 </form>
+
+                <h1>Cookie: {userId}</h1>
 
                 </ClientFormUI>
             )}
