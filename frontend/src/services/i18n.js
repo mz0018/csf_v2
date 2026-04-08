@@ -73,14 +73,15 @@ i18n
     .init({
         resources,
         fallbackLng: 'en',
-        interpolation: {
-            escapeValue: false
-        },
-
+        debug: true,
         detection: {
             order: ['localStorage', 'navigator'],
             lookupLocalStorage: 'i18nextLng',
+        },
+        interpolation: {
+            escapeValue: false
         }
+
     })
 
 export default i18n
