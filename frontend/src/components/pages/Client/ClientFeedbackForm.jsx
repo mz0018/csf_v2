@@ -1,7 +1,9 @@
-import { ClientFormUI } from '../../ui/ClientFormUI'
 import { useFetchSpecificOffice } from './../../../hooks/useFetchSpecificOffice'
 import { useSendFeedback } from '../../../hooks/useSendFeedback'
 
+import { LanguageSwitcher } from '../../buttons/LanguageSwitcher'
+
+import { ClientFormUI } from '../../ui/ClientFormUI'
 import { Buttons } from '../../ui/Buttons'
 import { Inputs } from '../../ui/Inputs'
 
@@ -87,7 +89,7 @@ const ClientFeedbackForm = () => {
                 </form>
 
                 <h1>Cookie: {userId}</h1>
-
+                <LanguageSwitcher />
                 </ClientFormUI>
             )}
         </>
