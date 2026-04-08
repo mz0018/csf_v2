@@ -6,6 +6,7 @@ import { Buttons } from '../../ui/Buttons'
 import { Inputs } from '../../ui/Inputs'
 
 import ClientDemographicForm from './ClientDemographicForm'
+import ClientServiceRatingForm from './ClientServiceRatingForm'
 
 const ClientFeedbackForm = () => {
 
@@ -80,6 +81,7 @@ const ClientFeedbackForm = () => {
                     )}
 
                     <ClientDemographicForm formData={formData} setFormData={setFormData} />
+                    <ClientServiceRatingForm formData={formData} setFormData={setFormData} />
 
                     <Buttons type="submit">{loadingFeedback ? 'Submitting..' : 'Submit Feedback'}</Buttons>
                 </form>

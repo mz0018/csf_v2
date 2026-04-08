@@ -13,7 +13,8 @@ export const useSendFeedback = () => {
         sex: '',
         address: '',
         specific_location: '',
-        employment_status: ''
+        employment_status: '',
+        serviceRatings: {}
     })
 
     const userId = useUserId()
@@ -43,6 +44,14 @@ export const useSendFeedback = () => {
             return 'Please select employment status';
         }
 
+        const requiredRatings = ["Responsiveness", "Reliability", "Access & Facilities", "Communication", "Costs", "Integrity", "Assurance", "Outcome"]
+
+        for (const rating of requiredRatings) {
+            if (!formData.serviceRatings[rating]) {
+                return `Please rate ${rating}`;
+            }
+        }
+
         return null;
     };
 
@@ -54,7 +63,8 @@ export const useSendFeedback = () => {
             sex: '',
             address: '',
             specific_location: '',
-            employment_status: ''
+            employment_status: '',
+            serviceRatings: {}
         };
 
         setFormData(initialState);
@@ -64,15 +74,15 @@ export const useSendFeedback = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        if (!userId) {
+            alert('Cookie not found. Please refresh the page and try again.')
+            return
+        }
+
         const error = validateForm()
 
         if (error) {
             alert(error)
-            return
-        }
-
-        if (!userId) {
-            alert('User ID not found. Please refresh the page and try again.')
             return
         }
 
