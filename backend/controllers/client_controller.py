@@ -16,9 +16,14 @@ BASE_URL_REMOTE = os.getenv("BASE_URL_REMOTE")
 def hello():
     return { "message": "Hello there, from backend!"}
 
-@router.post("/save-feedback")
-def save_feedback():
-    return {"message": "Feedback saved"}
+@router.post("/save-feedback/{userId}")
+async def save_feedback(userId: str, request: Request):
+    body = await request.json()
+
+    return {
+        "user id: ": userId,
+        "feedback": body
+    }
 
 @router.get("/feedback")
 def feedback():

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLocalStorage } from './useLocalStorage'
 import { useUserId } from './useUserId'
+import { api } from '../services/api'
 
 export const useSendFeedback = () => {
 
@@ -84,6 +85,11 @@ export const useSendFeedback = () => {
         try {
             console.log(formData)
             console.log('Cookie: ', userId)
+
+            const result = await api.post(`/save-feedback/${userId}`, formData)
+
+            console.log(result)
+
             alert('Feedback sent successfully')
             resetForm()
         } catch (err) {
