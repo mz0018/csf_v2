@@ -1,7 +1,8 @@
+alembic
 fastapi==0.110.0
 uvicorn==0.29.0
 gunicorn==23.0.0
-sqlalchemy==2.0.25
+sqlalchemy==2.0.36
 psycopg2-binary==2.9.11
 python-dotenv==1.0.1
 pydantic-settings==2.2.1

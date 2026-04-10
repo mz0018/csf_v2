@@ -6,6 +6,7 @@ import os
 load_dotenv()
 
 from services.qr_class import QRCode
+from services.client_class import Client
 
 router = APIRouter()
 
@@ -20,10 +21,10 @@ def hello():
 async def save_feedback(userId: str, request: Request):
     body = await request.json()
 
-    return {
-        "user id: ": userId,
-        "feedback": body
-    }
+    client = Client()
+    result = client.save_client_savefeedback(userId, body)
+
+    return result
 
 @router.get("/feedback")
 def feedback():
