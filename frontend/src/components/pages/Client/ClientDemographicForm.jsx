@@ -83,7 +83,7 @@ const ClientDemographicForm = ({ formData, setFormData }) => {
       ))}
 
       {formData.address === "Within Solano" && (
-        <div>
+        
           <select 
             name="specific_location"
             value={formData.specific_location || ""}
@@ -94,23 +94,18 @@ const ClientDemographicForm = ({ formData, setFormData }) => {
                 <option key={brgy} value={brgy}>{brgy}</option>
               ))}
           </select>
-        </div>
+  
       )}
 
       {formData.address === "Outside Solano" && (
-        <div>
-          <select 
+        <>
+          <Inputs
             name="specific_location"
             value={formData.specific_location || ""}
             onChange={handleChange}
-            >
-              <option value="">Select Municipality</option>
-              <option value="aritao">Aritao</option>
-              <option value="bambang">Bambang</option>
-              <option value="bayombong">Bayombong</option>
-              <option value="santa fe">Sta.fe</option>
-          </select>
-        </div>
+            placeholder="Enter Municipality"
+          />
+        </>
       )}
     </>
   );
