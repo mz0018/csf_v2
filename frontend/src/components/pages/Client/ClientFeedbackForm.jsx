@@ -6,9 +6,11 @@ import { LanguageSwitcher } from '../../buttons/LanguageSwitcher'
 import { ClientFormUI } from '../../ui/ClientFormUI'
 import { Buttons } from '../../ui/Buttons'
 import { Inputs } from '../../ui/Inputs'
+import { Textarea } from '../../ui/Textarea'
 
 import ClientDemographicForm from './ClientDemographicForm'
 import ClientServiceRatingForm from './ClientServiceRatingForm'
+import RespondentProfileForm from './RespondentProfileForm'
 
 const ClientFeedbackForm = () => {
 
@@ -26,6 +28,9 @@ const ClientFeedbackForm = () => {
                 <ClientFormUI title={data.name}>
             
                 <form onSubmit={handleSubmit}>
+
+                    <RespondentProfileForm formData={formData} setFormData={setFormData} />
+
                     {data.services?.length > 0 && (
                         <ul>
                         {data.services.map((service, index) => (
@@ -84,6 +89,17 @@ const ClientFeedbackForm = () => {
 
                     <ClientDemographicForm formData={formData} setFormData={setFormData} />
                     <ClientServiceRatingForm formData={formData} setFormData={setFormData} />
+
+                    <Textarea
+                        value={formData.other_suggestions}
+                        onChange={
+                            (e) => setFormData(prev => ({
+                                ...prev,
+                                other_suggestions: e.target.value,
+                            }))
+                        }
+                        placeholder='(Optional) Other suggestions...'
+                    />
 
                     <Buttons type="submit">{loadingFeedback ? 'Submitting..' : 'Submit Feedback'}</Buttons>
                 </form>

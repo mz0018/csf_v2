@@ -6,7 +6,9 @@ export const useSendFeedback = () => {
 
     const [loadingFeedback ,setLoadingFeedback] = useState(false)
 
-    const [formData, setFormData] = useLocalStorage('clientForm', {
+    const defaultFormData = {
+        client_name: '',
+        client_phone: '',
         selectedService: '',
         affiliation: '',
         age: '',
@@ -14,8 +16,11 @@ export const useSendFeedback = () => {
         address: '',
         specific_location: '',
         employment_status: '',
-        serviceRatings: {}
-    })
+        serviceRatings: {},
+        other_suggestions: ''
+    }
+
+    const [formData, setFormData] = useLocalStorage('clientForm', defaultFormData)
 
     const userId = useUserId()
 
@@ -56,18 +61,7 @@ export const useSendFeedback = () => {
     };
 
     const resetForm = () => {
-        const initialState = {
-            selectedService: '',
-            affiliation: '',
-            age: '',
-            sex: '',
-            address: '',
-            specific_location: '',
-            employment_status: '',
-            serviceRatings: {}
-        };
-
-        setFormData(initialState);
+        setFormData(defaultFormData);
         localStorage.removeItem('clientForm')
     };
 
