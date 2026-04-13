@@ -10,6 +10,7 @@ export const useSendFeedback = () => {
     const navigate = useNavigate()
 
     const [loadingFeedback ,setLoadingFeedback] = useState(false)
+    const [errors, setErrors] = useState({})
 
     const defaultFormData = {
         client_name: '',
@@ -28,40 +29,45 @@ export const useSendFeedback = () => {
     const [formData, setFormData] = useLocalStorage('clientForm', defaultFormData)
 
     const validateForm = () => {
+        const hasErrors = {}
+
         if (!formData.selectedService) {
-            return 'Please select a service';
+            hasErrors.service = 'Please select a service'
         }
 
         if (!formData.affiliation) {
-            return 'Please select affiliation';
+            hasErrors.affiliation = 'Please select affiliation'
         }
 
         if (!formData.age) {
-            return 'Please select age group';
+            hasErrors.age = 'Please select age group'
         }
 
         if (!formData.sex) {
-            return 'Please select sex';
+            hasErrors.sex = 'Please select sex'
         }
 
         if (formData.address === "Within Solano" && !formData.specific_location) {
-            return 'Please select address';
+            hasErrors.specific_location = 'Please select specific location'
         }
 
         if (!formData.employment_status) {
-            return 'Please select employment status';
+            hasErrors.employment_status = 'Please select employment status'
         }
 
-        const requiredRatings = ["Responsiveness", "Reliability", "Access & Facilities", "Communication", "Costs", "Integrity", "Assurance", "Outcome"]
+        const requiredRatings = [
+            "Responsiveness", "Reliability", "Access & Facilities",
+            "Communication", "Costs", "Integrity", "Assurance", "Outcome"
+        ]
 
         for (const rating of requiredRatings) {
             if (!formData.serviceRatings[rating]) {
-                return `Please rate ${rating}`;
+                hasErrors[rating] = `Please rate ${rating}`
             }
         }
 
-        return null;
-    };
+        return hasErrors
+    }
 
     const resetForm = () => {
         setFormData(defaultFormData);
@@ -76,10 +82,10 @@ export const useSendFeedback = () => {
             return
         }
 
-        const error = validateForm()
+        const errorObj = validateForm()
 
-        if (error) {
-            alert(error)
+        if (Object.keys(errorObj).length > 0) {
+            setErrors(errorObj)
             return
         }
 
@@ -102,5 +108,5 @@ export const useSendFeedback = () => {
         }
     }
     
-    return { handleSubmit, loadingFeedback, formData, setFormData, userId }
+    return { handleSubmit, loadingFeedback, formData, setFormData, userId, errors }
 }

@@ -10,6 +10,7 @@ import { ClientFormUI } from '../../ui/ClientFormUI'
 import { Buttons } from '../../ui/Buttons'
 import { Inputs } from '../../ui/Inputs'
 import { Textarea } from '../../ui/Textarea'
+import { ErrorMessage } from '../../ui/ErrorMessage'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -21,7 +22,7 @@ const ClientFeedbackForm = () => {
 
     const { loading, data } = useFetchSpecificOffice()
 
-    const { handleSubmit, loadingFeedback, formData, setFormData, userId } = useSendFeedback()
+    const { handleSubmit, loadingFeedback, formData, setFormData, userId, errors } = useSendFeedback()
     const { alreadySubmitted, loading: checkingStatus } = useCheckFeedbackStatus()
 
     const navigate = useNavigate()
@@ -48,7 +49,7 @@ const ClientFeedbackForm = () => {
             
                 <form onSubmit={handleSubmit} className="space-y-6">
 
-                    <RespondentProfileForm formData={formData} setFormData={setFormData} />
+                    <RespondentProfileForm formData={formData} setFormData={setFormData} errors={errors} />
 
                     {data.services?.length > 0 && (
                         <ul>
@@ -107,8 +108,8 @@ const ClientFeedbackForm = () => {
                         </ul>
                     )}
 
-                    <ClientDemographicForm formData={formData} setFormData={setFormData} />
-                    <ClientServiceRatingForm formData={formData} setFormData={setFormData} />
+                    <ClientDemographicForm formData={formData} setFormData={setFormData} errors={errors} />
+                    <ClientServiceRatingForm formData={formData} setFormData={setFormData} errors={errors} />
 
                     <Textarea
                         value={formData.other_suggestions}
@@ -120,6 +121,16 @@ const ClientFeedbackForm = () => {
                         }
                         placeholder='(Optional) Other suggestions...'
                     />
+
+
+                        {Object.keys(errors).length > 0 && (
+                            <>
+                            {Object.entries(errors).map(([key, message]) => (
+                                <ErrorMessage key={key} message={message} />
+                            ))}
+                            </>
+                        )}
+                    
 
                     <Buttons type="submit">{loadingFeedback ? 'Submitting..' : 'Submit Feedback'}</Buttons>
                 </form>
