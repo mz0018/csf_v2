@@ -44,17 +44,19 @@ const ClientFeedbackForm = () => {
                 <>404 Office not found</>
             ) : (
                 <ClientFormUI title={data.name}>
+                <LanguageSwitcher />
             
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="space-y-6">
 
                     <RespondentProfileForm formData={formData} setFormData={setFormData} />
 
                     {data.services?.length > 0 && (
                         <ul>
+                        <h1>Type of Services</h1>
                         {data.services.map((service, index) => (
                             <li key={index}>
                             {typeof service === 'string' ? (
-                                <label>
+                                <label className="inline-flex items-center gap-2">
                                     <Inputs
                                         type="radio"
                                         name="service"
@@ -67,7 +69,7 @@ const ClientFeedbackForm = () => {
                                 </label>
                             ) : (
                                 <>
-                                <label>
+                                <label className="inline-flex items-center gap-2">
                                     <Inputs
                                     type="radio"
                                     name="service"
@@ -83,7 +85,7 @@ const ClientFeedbackForm = () => {
                                     <ul className="pl-6 space-y-1">
                                     {service.sub_services.map((sub, i) => (
                                         <li key={i}>
-                                        <label>
+                                        <label className="inline-flex items-center gap-2">
                                             <Inputs
                                             type="radio"
                                             name="service"
@@ -122,8 +124,10 @@ const ClientFeedbackForm = () => {
                     <Buttons type="submit">{loadingFeedback ? 'Submitting..' : 'Submit Feedback'}</Buttons>
                 </form>
 
-                <h1>Cookie: {userId}</h1>
-                <LanguageSwitcher />
+                <small className="block text-right font-light text-gray-400 pt-4">
+                    Form ID: {userId}
+                </small>
+
                 </ClientFormUI>
             )}
         </>

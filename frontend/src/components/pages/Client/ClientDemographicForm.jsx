@@ -61,13 +61,13 @@ const ClientDemographicForm = ({ formData, setFormData }) => {
   };
 
   return (
-    <>
+    <div className="space-y-4">
       {formSections.map((section, idx) => (
-        <ul key={idx}>
+        <ul key={idx} className="">
           <h1>{section.title}</h1>
           {section.options.map((option, i) => (
             <li key={i}>
-              <label>
+              <label className="inline-flex items-center gap-2">
                 <Inputs
                   type="radio"
                   name={section.name}
@@ -107,7 +107,7 @@ const ClientDemographicForm = ({ formData, setFormData }) => {
           />
         </>
       )}
-    </>
+    </div>
   );
 };
 

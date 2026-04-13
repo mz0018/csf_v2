@@ -33,14 +33,14 @@ const ClientServiceRatingForm = ({ formData, setFormData }) => {
     }
 
     return (
-        <>
+        <div className="space-y-4">
         {formServices.map((service) => (
             <div key={service.name}>
                 <h3>{t(service.titleKey)}</h3>
                 <p>{t(service.key)}</p>
-                <div>
+                <div className="flex flex-wrap gap-2">
                     {ratingOptions.map((option) => (
-                        <label key={option.value}>
+                        <label key={option.value} className="inline-flex items-center gap-2">
                             <Inputs
                                 type="radio"
                                 name={service.name}
@@ -54,7 +54,7 @@ const ClientServiceRatingForm = ({ formData, setFormData }) => {
                 </div>
             </div>
         ))}
-        </>
+        </div>
     )
 }
 
