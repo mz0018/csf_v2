@@ -1,6 +1,7 @@
 import { Inputs } from '../../ui/Inputs'
+import { ErrorMessage } from '../../ui/ErrorMessage';
 
-const ClientDemographicForm = ({ formData, setFormData }) => {
+const ClientDemographicForm = ({ formData, setFormData, errors, clearError }) => {
   const formSections = [
     {
       title: "Affiliation",
@@ -50,9 +51,10 @@ const ClientDemographicForm = ({ formData, setFormData }) => {
     "Wacal"
   ];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    
+  const handleChange = (name, value) => {
+
+    clearError(name)
+
     if (name === "address") {
       setFormData(prev => ({ ...prev, address: value, specific_location: '' }))
     } else {
@@ -73,28 +75,30 @@ const ClientDemographicForm = ({ formData, setFormData }) => {
                   name={section.name}
                   value={option}
                   checked={formData[section.name] === option}
-                  onChange={handleChange}
+                  onChange={(e) => handleChange(section.name, e.target.value)}
                 />
                 {option}
               </label>
             </li>
           ))}
+          <ErrorMessage message={errors[section.name]} />
         </ul>
       ))}
 
       {formData.address === "Within Solano" && (
-        
+        <>
           <select 
             name="specific_location"
             value={formData.specific_location || ""}
-            onChange={handleChange}
+            onChange={(e) => handleChange('specific_location', e.target.value)}
             >
               <option value="">Select Barangay</option>
               {solanoBarangays.map(brgy => (
                 <option key={brgy} value={brgy}>{brgy}</option>
               ))}
           </select>
-  
+          <ErrorMessage message={errors.specific_location} />
+        </>
       )}
 
       {formData.address === "Outside Solano" && (
@@ -102,9 +106,10 @@ const ClientDemographicForm = ({ formData, setFormData }) => {
           <Inputs
             name="specific_location"
             value={formData.specific_location || ""}
-            onChange={handleChange}
+            onChange={(e) => handleChange('specific_location', e.target.value)}
             placeholder="Enter Municipality"
           />
+          <ErrorMessage message={errors.specific_location} />
         </>
       )}
     </div>

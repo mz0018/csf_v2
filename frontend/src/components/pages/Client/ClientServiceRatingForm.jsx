@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import { Inputs } from '../../ui/Inputs'
+import { ErrorMessage } from '../../ui/ErrorMessage'
 
-const ClientServiceRatingForm = ({ formData, setFormData }) => {
+const ClientServiceRatingForm = ({ formData, setFormData, errors, clearError }) => {
     const { t } = useTranslation()
 
      const formServices = [
@@ -23,6 +24,7 @@ const ClientServiceRatingForm = ({ formData, setFormData }) => {
     ]
 
     const handleRatingChange = (serviceName, ratingValue) => {
+        clearError(serviceName)
         setFormData(prev => ({
             ...prev,
             serviceRatings: {
@@ -51,6 +53,7 @@ const ClientServiceRatingForm = ({ formData, setFormData }) => {
                         </label>
                     ))}
                 </div>
+                <ErrorMessage message={errors[service.name]} />
             </div>
         ))}
         </div>

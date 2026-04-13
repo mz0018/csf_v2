@@ -107,6 +107,14 @@ export const useSendFeedback = () => {
             setLoadingFeedback(false)
         }
     }
+
+    const clearError = (fieldName) => {
+        setErrors(prev => {
+            const newErrors = { ...prev }
+            delete newErrors[fieldName]
+            return newErrors
+        })
+    }
     
-    return { handleSubmit, loadingFeedback, formData, setFormData, userId, errors }
+    return { handleSubmit, loadingFeedback, formData, setFormData, userId, errors, clearError }
 }

@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { ClipLoader } from 'react-spinners'
 
 import { useCheckFeedbackStatus } from '../../../hooks/useCheckFeedbackStatus'
 import { useFetchSpecificOffice } from './../../../hooks/useFetchSpecificOffice'
@@ -22,7 +23,7 @@ const ClientFeedbackForm = () => {
 
     const { loading, data } = useFetchSpecificOffice()
 
-    const { handleSubmit, loadingFeedback, formData, setFormData, userId, errors } = useSendFeedback()
+    const { handleSubmit, loadingFeedback, formData, setFormData, userId, errors, clearError } = useSendFeedback()
     const { alreadySubmitted, loading: checkingStatus } = useCheckFeedbackStatus()
 
     const navigate = useNavigate()
@@ -49,7 +50,7 @@ const ClientFeedbackForm = () => {
             
                 <form onSubmit={handleSubmit} className="space-y-6">
 
-                    <RespondentProfileForm formData={formData} setFormData={setFormData} errors={errors} />
+                    <RespondentProfileForm formData={formData} setFormData={setFormData} errors={errors} clearError={clearError} />
 
                     {data.services?.length > 0 && (
                         <ul>
@@ -62,9 +63,10 @@ const ClientFeedbackForm = () => {
                                         type="radio"
                                         name="service"
                                         checked={formData.selectedService === service}
-                                        onChange={() =>
+                                        onChange={() => {
+                                            clearError('service')
                                             setFormData(prev => ({ ...prev, selectedService: service }))
-                                        }
+                                        }}
                                     />
                                     {service}
                                 </label>
@@ -75,9 +77,10 @@ const ClientFeedbackForm = () => {
                                     type="radio"
                                     name="service"
                                     checked={formData.selectedService === service.name}
-                                    onChange={() =>
+                                    onChange={() => {
+                                        clearError('service')
                                         setFormData(prev => ({ ...prev, selectedService: service.name }))
-                                    }
+                                    }}
                                     />
                                     {service.name}
                                 </label>
@@ -91,9 +94,10 @@ const ClientFeedbackForm = () => {
                                             type="radio"
                                             name="service"
                                             checked={formData.selectedService === sub}
-                                            onChange={() =>
+                                            onChange={() => {
+                                                clearError('service')
                                                 setFormData(prev => ({ ...prev, selectedService: sub }))
-                                            }
+                                            }}
                                             />
                                             {sub}
                                         </label>
@@ -105,11 +109,14 @@ const ClientFeedbackForm = () => {
                             )}
                             </li>
                         ))}
+                        
+                        <ErrorMessage message={errors.service} />
+
                         </ul>
                     )}
 
-                    <ClientDemographicForm formData={formData} setFormData={setFormData} errors={errors} />
-                    <ClientServiceRatingForm formData={formData} setFormData={setFormData} errors={errors} />
+                    <ClientDemographicForm formData={formData} setFormData={setFormData} errors={errors} clearError={clearError} />
+                    <ClientServiceRatingForm formData={formData} setFormData={setFormData} errors={errors} clearError={clearError} />
 
                     <Textarea
                         value={formData.other_suggestions}
@@ -122,17 +129,13 @@ const ClientFeedbackForm = () => {
                         placeholder='(Optional) Other suggestions...'
                     />
 
-
-                        {Object.keys(errors).length > 0 && (
-                            <>
-                            {Object.entries(errors).map(([key, message]) => (
-                                <ErrorMessage key={key} message={message} />
-                            ))}
-                            </>
+                    <Buttons type="submit" disabled={loadingFeedback}>
+                        {loadingFeedback ? (
+                            <ClipLoader color="white" size={20} />
+                        ) : (
+                            "Submit Feedback"
                         )}
-                    
-
-                    <Buttons type="submit">{loadingFeedback ? 'Submitting..' : 'Submit Feedback'}</Buttons>
+                    </Buttons>
                 </form>
 
                 <small className="block text-right font-light text-gray-400 pt-4">
