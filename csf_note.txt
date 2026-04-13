@@ -1,0 +1,6 @@
+THE CLIENT CAN SUBMIT FEEDBACK AGAIN AFTER MIDNIGHT
+
+Same day, same office, same service	=  No
+Next day, same office, same service	= Yes
+Same day, different office = Yes
+Same day, different service (same office) = Yes
