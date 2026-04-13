@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+
+import { useCheckFeedbackStatus } from '../../../hooks/useCheckFeedbackStatus'
 import { useFetchSpecificOffice } from './../../../hooks/useFetchSpecificOffice'
 import { useSendFeedback } from '../../../hooks/useSendFeedback'
 
@@ -8,6 +11,8 @@ import { Buttons } from '../../ui/Buttons'
 import { Inputs } from '../../ui/Inputs'
 import { Textarea } from '../../ui/Textarea'
 
+import { useNavigate } from 'react-router-dom'
+
 import ClientDemographicForm from './ClientDemographicForm'
 import ClientServiceRatingForm from './ClientServiceRatingForm'
 import RespondentProfileForm from './RespondentProfileForm'
@@ -17,6 +22,19 @@ const ClientFeedbackForm = () => {
     const { loading, data } = useFetchSpecificOffice()
 
     const { handleSubmit, loadingFeedback, formData, setFormData, userId } = useSendFeedback()
+    const { alreadySubmitted, loading: checkingStatus } = useCheckFeedbackStatus()
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!checkingStatus && alreadySubmitted && data?.name) {
+            navigate(`/client/success-feedback/${data.office_id}`)
+        }
+    }, [alreadySubmitted, checkingStatus, data, navigate])
+
+    if (checkingStatus || loading) {
+        return <>Loading...</>
+    }
 
     return (
         <>

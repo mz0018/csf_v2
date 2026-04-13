@@ -9,10 +9,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 const PageNotFound = lazy(() => import('./components/pages/PageNotFound.jsx'))
 const InfoTechPage = lazy(() => import('./components/pages/IT/InfoTechPage.jsx'))
 const ClientFeedbackForm = lazy(() => import('./components/pages/Client/ClientFeedbackForm.jsx'))
+const SuccessFeedback = lazy(() => import('./components/pages/SuccessFeedback.jsx'))
 
 const router = createBrowserRouter([
   { path: "/", element: <App />},
   { path: "/client/:office", element: <ClientFeedbackForm />},
+  { path: "/client/success-feedback/:office", element: <SuccessFeedback />},
   { 
     path: "/infotech", 
     element: (

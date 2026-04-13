@@ -1,9 +1,13 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import FileResponse
 from dotenv import load_dotenv
+from datetime import date
+from sqlalchemy import func
+
 import os
 
 load_dotenv()
+
 
 from services.qr_class import QRCode
 from services.client_class import Client
@@ -17,18 +21,31 @@ BASE_URL_REMOTE = os.getenv("BASE_URL_REMOTE")
 def hello():
     return { "message": "Hello there, from backend!"}
 
-@router.post("/save-feedback/{userId}")
-async def save_feedback(userId: str, request: Request):
+@router.post("/save-feedback/{office_id}")
+async def save_feedback(office_id: str, request: Request):
     body = await request.json()
 
+    userId = request.cookies.get("userId")
+
+    if not userId:
+        return { "error": "User not authenticated" }
+
     client = Client()
-    result = client.save_client_savefeedback(userId, body)
+    result = client.save_client_savefeedback(office_id, userId, body)
 
     return result
 
-@router.get("/feedback")
-def feedback():
-    return {"message": "Install fucking postgres and finished this shit!"}
+@router.get("/feedback-status/{office_id}")
+async def get_feedback_status(office_id: str, request: Request):
+    userId = request.cookies.get("userId")
+    
+    if not userId:
+        return { "error": "User not authenticated" }
+    
+    client = Client()
+    result = client.feedback_status(office_id, userId)
+
+    return result
 
 @router.get("/qrcodes/local")
 def generate_local_qrcodes():

@@ -2,8 +2,12 @@ import { useState } from 'react'
 import { useLocalStorage } from './useLocalStorage'
 import { useUserId } from './useUserId'
 import { api } from '../services/api'
+import { useParams, useNavigate } from 'react-router-dom'
 
 export const useSendFeedback = () => {
+    const { office } = useParams()
+    const userId = useUserId()
+    const navigate = useNavigate()
 
     const [loadingFeedback ,setLoadingFeedback] = useState(false)
 
@@ -22,8 +26,6 @@ export const useSendFeedback = () => {
     }
 
     const [formData, setFormData] = useLocalStorage('clientForm', defaultFormData)
-
-    const userId = useUserId()
 
     const validateForm = () => {
         if (!formData.selectedService) {
@@ -83,15 +85,16 @@ export const useSendFeedback = () => {
 
         setLoadingFeedback(true)
         try {
-            console.log(formData)
-            console.log('Cookie: ', userId)
 
-            const result = await api.post(`/save-feedback/${userId}`, formData)
+            const result = await api.post(`/save-feedback/${office}`, formData)
 
-            console.log(result)
+            if (result.data.success) {
+                navigate(`/client/success-feedback/${office}`)
+                resetForm()
+            } else if (result.data.message) {
+                alert(result.data.message)
+            }
 
-            alert('Feedback sent successfully')
-            resetForm()
         } catch (err) {
             console.error('Something went wrong! ', err)
         } finally {
