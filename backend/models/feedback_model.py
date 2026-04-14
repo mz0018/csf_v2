@@ -18,5 +18,4 @@ class Feedback(Base):
     employment_status = Column(String, nullable=False)
     service_rating = Column(JSON, nullable=False)
     other_suggestions = Column(String, nullable=True)
-    office_id = Column(String, nullable=False)
-    created_at = Column(DateTime, default=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
