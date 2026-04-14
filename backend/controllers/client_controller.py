@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Query
 from fastapi.responses import FileResponse
 from dotenv import load_dotenv
 from datetime import date
@@ -36,14 +36,14 @@ async def save_feedback(office_id: str, request: Request):
     return result
 
 @router.get("/feedback-status/{office_id}")
-async def get_feedback_status(office_id: str, request: Request):
+async def get_feedback_status(office_id: str, request: Request, service: str = Query(None)):
     userId = request.cookies.get("userId")
     
     if not userId:
         return { "error": "User not authenticated" }
     
     client = Client()
-    result = client.feedback_status(office_id, userId)
+    result = client.feedback_status(office_id, userId, service)
 
     return result
 

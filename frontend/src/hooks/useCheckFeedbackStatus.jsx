@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { api } from '../services/api'
-export const useCheckFeedbackStatus = () => {
 
+export const useCheckFeedbackStatus = (selectedService) => {
     const { office } = useParams()
     const [alreadySubmitted, setAlreadySubmitted] = useState(false)
     const [loading, setLoading] = useState(true)
-
     useEffect(() => {
         const checkStatus = async () => {
             try {
-                const response = await api.get(`/feedback-status/${office}`)
+                const url = selectedService 
+                    ? `/feedback-status/${office}?service=${encodeURIComponent(selectedService)}`
+                    : `/feedback-status/${office}`
+                const response = await api.get(url)
                 setAlreadySubmitted(response.data.alreadySubmitted)
             } catch (err) {
                 console.error('Error checking status:', err)
@@ -21,7 +23,7 @@ export const useCheckFeedbackStatus = () => {
         if (office) {
             checkStatus()
         }
-    }, [office])
+    }, [office, selectedService])
     
     return { alreadySubmitted, loading }
 }

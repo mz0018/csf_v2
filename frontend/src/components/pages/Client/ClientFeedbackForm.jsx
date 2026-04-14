@@ -26,17 +26,17 @@ const ClientFeedbackForm = () => {
     const { loading, data } = useFetchSpecificOffice()
 
     const { handleSubmit, loadingFeedback, formData, setFormData, userId, errors, clearError } = useSendFeedback()
-    const { alreadySubmitted, loading: checkingStatus } = useCheckFeedbackStatus()
+    const { alreadySubmitted, loading: checkingStatus } = useCheckFeedbackStatus(formData.selectedService)
 
     const refs = feedbackAutoScrollError(errors)
 
     const navigate = useNavigate()
 
-    useEffect(() => {
-        if (!checkingStatus && alreadySubmitted && data?.name) {
-            navigate(`/client/success-feedback/${data.office_id}`)
-        }
-    }, [alreadySubmitted, checkingStatus, data, navigate])
+    // useEffect(() => {
+    //     if (!checkingStatus && alreadySubmitted && data?.name) {
+    //         navigate(`/client/success-feedback/${data.office_id}`)
+    //     }
+    // }, [alreadySubmitted, checkingStatus, data, navigate])
 
     if (checkingStatus || loading) {
         return <>Loading...</>

@@ -13,7 +13,10 @@ const SuccessFeedback = () => {
     useEffect(() => {
         const verifyAndFetch = async () => {
             try {
-                const statusRes = await api.get(`/feedback-status/${office}`)
+                const service = searchParams.get('service')
+                const statusRes = service 
+                    ? await api.get(`/feedback-status/${office}?service=${encodeURIComponent(service)}`)
+                    : await api.get(`/feedback-status/${office}`)
                 
                 if (!statusRes.data.alreadySubmitted) {
                     navigate(`/client/feedback/${office}`)

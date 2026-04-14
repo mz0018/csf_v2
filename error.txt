@@ -1,35 +1,53 @@
-react-router-dom.js?v=690648ab:3934 Error handled by React Router default ErrorBoundary: Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: object.
 
-Check the render method of `ClientFeedbackForm`.
-    at createFiberFromTypeAndProps (react-dom_client.js?v=c52502c0:2817:21)
-    at createFiberFromElement (react-dom_client.js?v=c52502c0:2828:11)
-    at reconcileChildFibersImpl (react-dom_client.js?v=c52502c0:3813:373)
-    at react-dom_client.js?v=c52502c0:3869:28
-    at reconcileChildren (react-dom_client.js?v=c52502c0:5386:114)
-    at beginWork (react-dom_client.js?v=c52502c0:6200:1569)
-    at runWithFiberInDEV (react-dom_client.js?v=c52502c0:851:66)
-    at performUnitOfWork (react-dom_client.js?v=c52502c0:8429:92)
-    at workLoopSync (react-dom_client.js?v=c52502c0:8325:37)
-    at renderRootSync (react-dom_client.js?v=c52502c0:8309:6)
-ClientFeedbackForm.jsx:134 Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: object.
-
-Check the render method of `ClientFeedbackForm`.
-
-
-The above error occurred in the <button> component.
-
-React will try to recreate this component tree from scratch using the error boundary you provided, RenderErrorBoundary.
-react-router-dom.js?v=690648ab:3965 React Router caught the following error during render Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: object.
-
-Check the render method of `ClientFeedbackForm`.
-    at createFiberFromTypeAndProps (react-dom_client.js?v=c52502c0:2817:21)
-    at createFiberFromElement (react-dom_client.js?v=c52502c0:2828:11)
-    at reconcileChildFibersImpl (react-dom_client.js?v=c52502c0:3813:373)
-    at react-dom_client.js?v=c52502c0:3869:28
-    at reconcileChildren (react-dom_client.js?v=c52502c0:5386:114)
-    at beginWork (react-dom_client.js?v=c52502c0:6200:1569)
-    at runWithFiberInDEV (react-dom_client.js?v=c52502c0:851:66)
-    at performUnitOfWork (react-dom_client.js?v=c52502c0:8429:92)
-    at workLoopSync (react-dom_client.js?v=c52502c0:8325:37)
-    at renderRootSync (react-dom_client.js?v=c52502c0:8309:6)
-﻿
+C:\Users\Admin\Desktop\csf_v2\backend>python -m uvicorn main:app --reload
+[32mINFO[0m:     Will watch for changes in these directories: ['C:\\Users\\Admin\\Desktop\\csf_v2\\backend']
+[32mINFO[0m:     Uvicorn running on [1mhttp://127.0.0.1:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     Started reloader process [[36m[1m1224[0m] using [36m[1mStatReload[0m
+Process SpawnProcess-1:
+Traceback (most recent call last):
+  File "C:\Program Files\Python314\Lib\multiprocessing\process.py", line 320, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "C:\Program Files\Python314\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python314\Lib\site-packages\uvicorn\_subprocess.py", line 78, in subprocess_started
+    target(sockets=sockets)
+    ~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python314\Lib\site-packages\uvicorn\server.py", line 65, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python314\Lib\asyncio\runners.py", line 204, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Program Files\Python314\Lib\asyncio\runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Program Files\Python314\Lib\asyncio\base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "C:\Program Files\Python314\Lib\site-packages\uvicorn\server.py", line 69, in serve
+    await self._serve(sockets)
+  File "C:\Program Files\Python314\Lib\site-packages\uvicorn\server.py", line 76, in _serve
+    config.load()
+    ~~~~~~~~~~~^^
+  File "C:\Program Files\Python314\Lib\site-packages\uvicorn\config.py", line 433, in load
+    self.loaded_app = import_from_string(self.app)
+                      ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Program Files\Python314\Lib\site-packages\uvicorn\importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+  File "C:\Program Files\Python314\Lib\importlib\__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1398, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1371, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1342, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 938, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 759, in exec_module
+  File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+  File "C:\Users\Admin\Desktop\csf_v2\backend\main.py", line 4, in <module>
+    from controllers import client_controller
+  File "C:\Users\Admin\Desktop\csf_v2\backend\controllers\client_controller.py", line 39
+    async def get_feedback_status(office_id: str, service: str = Query(None), request: Request):
+                                                                              ^^^^^^^^^^^^^^^^
+SyntaxError: parameter without a default follows parameter with a default

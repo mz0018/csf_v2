@@ -60,17 +60,22 @@ class Client:
         finally:
             db.close()
 
-    def feedback_status(self, office_id, userId):
+    def feedback_status(self, office_id, userId, service=None):
         
         db = SessionLocal()
         try:
             today = date.today()
 
-            existing = db.query(Feedback).filter(
+            query = db.query(Feedback).filter(
                 Feedback.user_id == userId,
                 Feedback.office_id == office_id,
                 func.date(Feedback.created_at) == today
-            ).first()
+            )
+
+            if service:
+                query = query.filter(Feedback.type_of_service == service)
+
+            existing = query.first()
         
             return { "alreadySubmitted": existing is not None }
         finally:
