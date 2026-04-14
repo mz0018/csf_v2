@@ -47,8 +47,15 @@ export const useSendFeedback = () => {
             hasErrors.sex = 'Please select sex'
         }
 
-        if (formData.address === "Within Solano" && !formData.specific_location) {
-            hasErrors.specific_location = 'Please select specific location'
+        if (!formData.address) {
+            hasErrors.address = 'Please select address'
+        }
+        
+        if ((formData.address === "Within Solano" || formData.address === "Outside Solano") && !formData.specific_location) {
+            const msg = formData.address === "Within Solano" 
+                ? 'Please select specific location' 
+                : 'Please enter municipality'
+            hasErrors.specific_location = msg
         }
 
         if (!formData.employment_status) {
