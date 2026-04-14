@@ -19,12 +19,16 @@ import ClientDemographicForm from './ClientDemographicForm'
 import ClientServiceRatingForm from './ClientServiceRatingForm'
 import RespondentProfileForm from './RespondentProfileForm'
 
+import { feedbackAutoScrollError } from '../../../helpers/feedbackAutoScrollError'
+
 const ClientFeedbackForm = () => {
 
     const { loading, data } = useFetchSpecificOffice()
 
     const { handleSubmit, loadingFeedback, formData, setFormData, userId, errors, clearError } = useSendFeedback()
     const { alreadySubmitted, loading: checkingStatus } = useCheckFeedbackStatus()
+
+    const refs = feedbackAutoScrollError(errors)
 
     const navigate = useNavigate()
 
@@ -53,7 +57,7 @@ const ClientFeedbackForm = () => {
                     <RespondentProfileForm formData={formData} setFormData={setFormData} errors={errors} clearError={clearError} />
 
                     {data.services?.length > 0 && (
-                        <ul>
+                        <ul ref={refs.service}>
                         <h1>Type of Services</h1>
                         {data.services.map((service, index) => (
                             <li key={index}>

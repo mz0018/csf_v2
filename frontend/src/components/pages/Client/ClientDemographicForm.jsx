@@ -1,7 +1,11 @@
 import { Inputs } from '../../ui/Inputs'
 import { ErrorMessage } from '../../ui/ErrorMessage';
+import { feedbackAutoScrollError } from '../../../helpers/feedbackAutoScrollError';
 
 const ClientDemographicForm = ({ formData, setFormData, errors, clearError }) => {
+
+  const refs = feedbackAutoScrollError(errors)
+
   const formSections = [
     {
       title: "Affiliation",
@@ -65,7 +69,7 @@ const ClientDemographicForm = ({ formData, setFormData, errors, clearError }) =>
   return (
     <div className="space-y-4">
       {formSections.map((section, idx) => (
-        <ul key={idx} className="">
+        <ul key={idx} ref={refs[section.name]}>
           <h1>{section.title}</h1>
           {section.options.map((option, i) => (
             <li key={i}>
@@ -87,7 +91,8 @@ const ClientDemographicForm = ({ formData, setFormData, errors, clearError }) =>
 
       {formData.address === "Within Solano" && (
         <>
-          <select 
+          <select
+            ref={refs.specific_location} 
             name="specific_location"
             value={formData.specific_location || ""}
             onChange={(e) => handleChange('specific_location', e.target.value)}
@@ -104,6 +109,7 @@ const ClientDemographicForm = ({ formData, setFormData, errors, clearError }) =>
       {formData.address === "Outside Solano" && (
         <>
           <Inputs
+            ref={refs.specific_location}
             name="specific_location"
             value={formData.specific_location || ""}
             onChange={(e) => handleChange('specific_location', e.target.value)}
