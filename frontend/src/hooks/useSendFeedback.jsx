@@ -55,7 +55,7 @@ export const useSendFeedback = () => {
             const result = await api.post(`/save-feedback/${office}`, formData)
 
             if (result.data.success) {
-                navigate(`/client/success-feedback/${office}`)
+                navigate(`/client/success-feedback/${office}?token=${result.data.id}`)
                 resetForm()
             } else if (result.data.message) {
                 alert(result.data.message)
