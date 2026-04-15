@@ -25,7 +25,7 @@ const ClientFeedbackForm = () => {
 
     const { loading, data } = useFetchSpecificOffice()
 
-    const { handleSubmit, loadingFeedback, formData, setFormData, userId, errors, clearError } = useSendFeedback()
+    const { handleSubmit, loadingFeedback, formData, setFormData, userId, errors, rateLimitErr, clearError } = useSendFeedback()
     const { alreadySubmitted, loading: checkingStatus } = useCheckFeedbackStatus(formData.selectedService)
 
     const refs = feedbackAutoScrollError(errors)
@@ -132,6 +132,8 @@ const ClientFeedbackForm = () => {
                         }
                         placeholder='(Optional) Other suggestions...'
                     />
+
+                    <ErrorMessage message={rateLimitErr} />
 
                     <Buttons type="submit" disabled={loadingFeedback}>
                         {loadingFeedback ? (

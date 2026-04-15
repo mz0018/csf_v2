@@ -12,6 +12,7 @@ export const useSendFeedback = () => {
 
     const [loadingFeedback ,setLoadingFeedback] = useState(false)
     const [errors, setErrors] = useState({})
+    const [rateLimitErr, setRateLimitErr] = useState(null)
 
     const defaultFormData = {
         client_name: '',
@@ -57,12 +58,16 @@ export const useSendFeedback = () => {
             if (result.data.success) {
                 navigate(`/client/success-feedback/${office}?token=${result.data.id}`)
                 resetForm()
+                setRateLimitErr(null)
             } else if (result.data.message) {
                 alert(result.data.message)
             }
 
         } catch (err) {
             console.error('Something went wrong! ', err)
+            if (err.response?.data?.detail) {
+                setRateLimitErr('Too many requests. Please wait a moment and try again.')
+            }
         } finally {
             setLoadingFeedback(false)
         }
@@ -74,7 +79,8 @@ export const useSendFeedback = () => {
             delete newErrors[fieldName]
             return newErrors
         })
+        setRateLimitErr(null)
     }
     
-    return { handleSubmit, loadingFeedback, formData, setFormData, userId, errors, clearError }
+    return { handleSubmit, loadingFeedback, formData, setFormData, userId, errors, rateLimitErr, clearError }
 }
