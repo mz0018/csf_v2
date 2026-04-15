@@ -1,6 +1,6 @@
 import twemoji from 'twemoji'
 
-const TwemojiEmoji = ({ emoji, size = 24 }) => {
+const TwemojiEmoji = ({ emoji, size = 14 }) => {
   const parsed = twemoji.parse(emoji, {
     folder: 'svg',
     ext: '.svg'

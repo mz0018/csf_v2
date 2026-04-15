@@ -37,24 +37,32 @@ const ClientServiceRatingForm = ({ formData, setFormData, errors, clearError }) 
 
     return (
         <div className="space-y-4">
-        {formServices.map((service) => (
-            <div key={service.name}>
-                <h3><a>({t(service.titleKey)}) </a>{t(service.key)}</h3>
-                <div className="flex flex-wrap gap-2">
-                    {ratingOptions.map((option) => (
-                        <RatingOption
-                            key={option.value}
-                            option={option}
-                            name={service.name}
-                            checked={formData.serviceRatings?.[service.name] === option.value}
-                            onChange={() => handleRatingChange(service.name, option.value)}
-                            label={t(option.labelKey)}
-                        />
-                    ))}
-                </div>
-                <ErrorMessage message={errors[service.name]} />
+
+            <h2>Legend</h2>
+            <div className="flex gap-4">
+                {ratingOptions.map((legend) => (
+                    <p key={legend.labelKey}>{legend.value}-{t(legend.labelKey)}</p>
+                ))}
             </div>
-        ))}
+
+            {formServices.map((service) => (
+                <div key={service.name}>
+                    <h3><a>({t(service.titleKey)}) </a>{t(service.key)}</h3>
+                    <div className="flex flex-wrap gap-2">
+                        {ratingOptions.map((option) => (
+                            <RatingOption
+                                key={option.value}
+                                option={option}
+                                name={service.name}
+                                checked={formData.serviceRatings?.[service.name] === option.value}
+                                onChange={() => handleRatingChange(service.name, option.value)}
+                                value={option.value}
+                            />
+                        ))}
+                    </div>
+                    <ErrorMessage message={errors[service.name]} />
+                </div>
+            ))}
         </div>
     )
 }
