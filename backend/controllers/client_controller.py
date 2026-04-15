@@ -12,6 +12,8 @@ load_dotenv()
 from services.qr_class import QRCode
 from services.client_class import Client
 
+from core import rate_limit
+
 router = APIRouter()
 
 BASE_URL_LOCAL = os.getenv("BASE_URL_LOCAL")
@@ -22,6 +24,7 @@ def hello():
     return { "message": "Hello there, from backend!"}
 
 @router.post("/save-feedback/{office_id}")
+@rate_limit("feedback_submission")
 async def save_feedback(office_id: str, request: Request):
     body = await request.json()
 
