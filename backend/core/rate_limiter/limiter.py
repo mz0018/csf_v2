@@ -1,10 +1,12 @@
 import time
 from functools import wraps
+import logging
 from fastapi import HTTPException, Request
 from fastapi.responses import JSONResponse
 from .config import RATE_LIMITS, RateLimitConfig
 from .storage import storage
 
+logger = logging.getLogger(__name__)
 
 class RateLimiter:
     def __init__(self, storage: storage.__class__):
@@ -24,6 +26,7 @@ class RateLimiter:
         remaining = max(0, config.max_requests - current)
         return current <= config.max_requests, remaining
 
+_rate_limiter = RateLimiter(storage)
 
 def rate_limit(key: str = "default"):
     def decorator(func):
@@ -37,22 +40,27 @@ def rate_limit(key: str = "default"):
                         request = arg
                         break
 
-            limiter = RateLimiter(storage)
             config = RATE_LIMITS.get(key, RATE_LIMITS["default"])
             user_id = request.cookies.get("userId") or request.client.host
+
             identifier = f"{user_id}"
-            allowed, remaining = limiter.is_allowed(config, identifier)
+            allowed, remaining = _rate_limiter.is_allowed(config, identifier)
+
             if not allowed:
+                logger.warning(f"Rate limit exceeded for {identifier} on '{key}'")
                 raise HTTPException(
                     status_code=429,
                     detail=f"Rate limit exceeded. Try again in {config.window_seconds} seconds."
                 )
+
             result = await func(*args, **kwargs)
+
             if isinstance(result, dict):
                 return JSONResponse(
                     content=result,
                     headers={"X-RateLimit-Remaining": str(remaining)},
                 )
+
             return result
 
         return wrapper

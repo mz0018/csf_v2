@@ -9,8 +9,11 @@ class Settings(BaseSettings):
     PG_USER: str
     PG_PASSWORD: str
     PG_PORT: str
+    REDIS_HOST: str
+    REDIS_PORT: int
+    REDIS_DB: int
 
-    class Config:
+class Config:
         env_file = ".env"
 
 settings = Settings()

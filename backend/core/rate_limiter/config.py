@@ -9,7 +9,7 @@ class RateLimitConfig:
 
 RATE_LIMITS: Dict[str, RateLimitConfig] = {
     "feedback_submission": RateLimitConfig(
-        max_requests=30,
+        max_requests=3,
         window_seconds=60,
         key_prefix="rate:feedback"
     ),
