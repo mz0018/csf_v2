@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
+import { ClientFormUI } from '../ui/ClientFormUI'
 import { api } from '../../services/api'
 
 const SuccessFeedback = () => {
     const { office } = useParams()
     const [searchParams] = useSearchParams()
     const navigate = useNavigate()
-    const token = searchParams.get('token')
     
     const [officeName, setOfficeName] = useState('')
     const [isValid, setIsValid] = useState(null)
@@ -38,10 +38,10 @@ const SuccessFeedback = () => {
     }, [office, navigate])
     if (isValid === null) return null
     return (
-        <div>
-            <h1>Thank you for your feedback for {officeName} today!</h1>
-            <p>You have already submitted your feedback. Please come back tomorrow.</p>
-        </div>
+        <ClientFormUI>
+            <h2>Thank you for your feedback, {officeName} appreciates it!</h2>
+            <p>You have already submitted your feedback.</p>
+        </ClientFormUI>
     )
 }
 

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
-import { Inputs } from '../../ui/Inputs'
 import { ErrorMessage } from '../../ui/ErrorMessage'
+import { RatingOption } from '../../ui/RatingOption'
 
 const ClientServiceRatingForm = ({ formData, setFormData, errors, clearError }) => {
     const { t } = useTranslation()
@@ -15,12 +15,13 @@ const ClientServiceRatingForm = ({ formData, setFormData, errors, clearError }) 
         { name: "Assurance", titleKey: "service_title.assurance", key: "services.assurance" },
         { name: "Outcome", titleKey: "service_title.outcome", key: "services.outcome" }
     ]
+
     const ratingOptions = [
-        { labelKey: "ratings.stronglyAgree", value: 5 },
-        { labelKey: "ratings.agree", value: 4 },
-        { labelKey: "ratings.neutral", value: 3 },
-        { labelKey: "ratings.disagree", value: 2 },
-        { labelKey: "ratings.stronglyDisagree", value: 1 }
+        { labelKey: "ratings.stronglyAgree", value: 5, emoji: "😄" },
+        { labelKey: "ratings.agree", value: 4, emoji: "🙂" },
+        { labelKey: "ratings.neutral", value: 3, emoji: "😐" },
+        { labelKey: "ratings.disagree", value: 2, emoji: "🙁" },
+        { labelKey: "ratings.stronglyDisagree", value: 1, emoji: "😠" }
     ]
 
     const handleRatingChange = (serviceName, ratingValue) => {
@@ -41,16 +42,14 @@ const ClientServiceRatingForm = ({ formData, setFormData, errors, clearError }) 
                 <h3><a>({t(service.titleKey)}) </a>{t(service.key)}</h3>
                 <div className="flex flex-wrap gap-2">
                     {ratingOptions.map((option) => (
-                        <label key={option.value} className="inline-flex items-center gap-2">
-                            <Inputs
-                                type="radio"
-                                name={service.name}
-                                value={option.value}
-                                checked={formData.serviceRatings?.[service.name] === option.value}
-                                onChange={() => handleRatingChange(service.name, option.value)}
-                            />
-                            {t(option.labelKey)}
-                        </label>
+                        <RatingOption
+                            key={option.value}
+                            option={option}
+                            name={service.name}
+                            checked={formData.serviceRatings?.[service.name] === option.value}
+                            onChange={() => handleRatingChange(service.name, option.value)}
+                            label={t(option.labelKey)}
+                        />
                     ))}
                 </div>
                 <ErrorMessage message={errors[service.name]} />
