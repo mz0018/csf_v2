@@ -5,6 +5,7 @@ import App from './App.jsx'
 import './services/i18n.js'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { QRProvider } from './context/QRContext.jsx'
 
 const PageNotFound = lazy(() => import('./components/pages/PageNotFound.jsx'))
 const InfoTechPage = lazy(() => import('./components/pages/IT/InfoTechPage.jsx'))
@@ -28,6 +29,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <QRProvider><RouterProvider router={router} /></QRProvider>
   </StrictMode>,
 )

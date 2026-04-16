@@ -1,6 +1,6 @@
 export const ButtonOpenMainSidebar = ({ setIsSidebarOpen }) => {
 
     return (
-        <button onClick={() => setIsSidebarOpen(true)}>Open Sidebar</button>
+        <button className="cursor-pointer" onClick={() => setIsSidebarOpen(true)}>Open Sidebar</button>
     )
 }

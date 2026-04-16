@@ -3,7 +3,6 @@ import { ButtonOpenMainSidebar } from './components/buttons/ButtonOpenMainSideba
 import { Sidebar } from './components/sections/Sidebar'
 
 const App = () => {
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   return (
