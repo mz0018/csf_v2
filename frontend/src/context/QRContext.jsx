@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { api } from '../services/api'
+
 const QRContext = createContext()
+
 export const QRProvider = ({ children }) => {
     const [isGenerated, setIsGenerated] = useState(false)
     const [qrData, setQrData] = useState({ local: [], remote: [] })
@@ -20,7 +22,7 @@ export const QRProvider = ({ children }) => {
     }, [])
     useEffect(() => {
         fetchQRData()
-    }, [fetchQRData])
+    }, [isGenerated, fetchQRData])
     return (
         <QRContext.Provider value={{ isGenerated, setIsGenerated, qrData, fetchQRData }}>
             {children}

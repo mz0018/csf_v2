@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import { motion } from 'framer-motion'
 import { UseTooltip } from '@/helpers/UseTooltip'
+
 const QRListItem = memo(({ title, qrList }) => {
     if (!qrList?.length) return null
     
