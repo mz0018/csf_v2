@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import './services/i18n.js'
 
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { QRProvider } from './context/QRContext.jsx'
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <QRProvider><RouterProvider router={router} /></QRProvider>
+    <TooltipProvider delayDuration={150}>
+      <QRProvider>
+        <RouterProvider router={router} />
+      </QRProvider>
+    </TooltipProvider>
   </StrictMode>,
 )

@@ -1,8 +1,8 @@
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { OfficeQR } from './OfficeQRs'
 import { useQR } from '../../context/QRContext'
 import { PanelRight } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { UseTooltip } from '@/helpers/UseTooltip'
 
 export const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
@@ -16,23 +16,16 @@ export const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
         className="fixed top-0 right-0 h-full w-1/2 bg-gray-800 text-white z-50"
       >
       <div className="p-4 space-y-4 h-full overflow-y-auto">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <motion.button
-                onClick={() => setIsSidebarOpen(false)}
-                className="cursor-pointer"
-                whileHover={{scale: 1, y: -2}}
-                whileTap={{ scale: 0.95 }}
-              >
-                <PanelRight size={24} color='white' />
-              </motion.button>
-            </TooltipTrigger>
-            <TooltipContent>
-              Close sidebar
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <UseTooltip content={'Close sidebar'}>
+          <motion.button
+            onClick={() => setIsSidebarOpen(false)}
+            className="cursor-pointer"
+            whileHover={{scale: 1, y: -2}}
+            whileTap={{ scale: 0.95 }}
+          >
+            <PanelRight size={24} color='white' />
+          </motion.button>
+        </UseTooltip>
 
         <OfficeQR setIsGenerated={setIsGenerated} isGenerated={isGenerated} />
       </div>
