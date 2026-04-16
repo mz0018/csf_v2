@@ -79,7 +79,8 @@ def get_qrcodes(request: Request):
                 "file": item["file"],
                 "url": f"{base_url}/qrcodes/{qr_type}/{os.path.basename(item['file'])}",
                 "target_url": f"{base_url}/{item['office_id']}",
-                "type": qr_type
+                "type": qr_type,
+                "short_name": item["short_name"]
             })
         return result
     
