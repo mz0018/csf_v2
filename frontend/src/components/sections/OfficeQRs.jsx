@@ -13,6 +13,7 @@ const QRList = ({ title, qrList, isLocal }) => {
                         className="flex flex-col items-center text-center"
                     >
                         <p className="mb-2 text-xs whitespace-nowrap">{qr.name}</p>
+                        <p className="mb-2 text-xs whitespace-nowrap">{qr.short_name}</p>
                         <img
                             src={qr.url}
                             alt={qr.name}
@@ -43,7 +44,7 @@ export const OfficeQR = ({ setIsGenerated, isGenerated }) => {
     
     return (
         <div>
-            {/* <QRList title="Local QR Codes (Testing)" qrList={list.local} isLocal={true} /> */}
+            <QRList title="Local QR Codes (Testing)" qrList={list.local} isLocal={true} />
             <QRList title="Remote QR Codes (Production)" qrList={list.remote} isLocal={false} />
         </div>
     )

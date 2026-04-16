@@ -1,6 +1,7 @@
 {
   "1": {
-    "name": "Municipal Mayor's Office (MMO)",
+    "name": "Municipal Mayor's Office",
+    "short_name": "MMO",
     "services": [
       "Request for Mayor’s Clearance (Work Employment / Immersion, Fidelity Bond Renewal)",
       "Request for Financial and Material Assistance",
@@ -10,14 +11,14 @@
       "Request for Certificate of Unemployment"
     ]
   },
-  "2": {"name": "Municipal Social Welfare and Development Office (MSWDO)"},
-  "3": {"name": "Municipal Civil Registry Office (MCRO)"},
-  "4": {"name": "Municipal Assessor's Office (MAO)"},
-  "5": {"name": "Municipal Accounting Office (MACCO)"},
-  "6": {"name": "Municipal Treasury Office (MTO)"},
-  "7": {"name": "Municipal Engineering Office (MEO)"},
+  "2": {"name": "Municipal Social Welfare and Development Office", "short_name": "MSWDO"},
+  "3": {"name": "Municipal Civil Registry Office", "short_name": "MCRO"},
+  "4": {"name": "Municipal Assessor's Office", "short_name": "MAO"},
+  "5": {"name": "Municipal Accounting Office", "short_name": "MACCO"},
+  "6": {"name": "Municipal Treasury Office", "short_name": "MTO"},
+  "7": {"name": "Municipal Engineering Office (MEO)", "short_name": "MEO"},
   "8": {
-    "name": "Business Permit and Licensing Section (BPLS)",
+    "name": "Business Permit and Licensing Section", "short_name": "BPLS",
     "services": [
       "Business Permit",
       "Tricycle Permit",
@@ -33,17 +34,19 @@
       "Occupational Permit" 
     ]
   },
-  "9": {"name": "Human Resource Management Office (HRMO)"},
+  "9": {"name": "Human Resource Management Office", "short_name": "HRMO"},
   "10": {
-    "name": "Municipal Budget Office (MBO)",
+    "name": "Municipal Budget Office",
+    "short_name": "MBO",
     "services": [
       "Processing of Obligation Request"
     ]
   },
-  "11": {"name": "Municipal Planning and Development Office (MPDO)"},
-  "12": {"name": "Municipal Agriculture Office (MAGRO)"},
+  "11": {"name": "Municipal Planning and Development Office", "short_name": "MPDO"},
+  "12": {"name": "Municipal Agriculture Office", "short_name": "MAGRO"},
   "13": {
-    "name": "Municipal Health Office (MHO)",
+    "name": "Municipal Health Office",
+    "short_name": "MHO",
     "services": [
       "Medical Consultation",
       "Laboratory Services",
@@ -63,7 +66,8 @@
     ]
   },
   "14": {
-    "name": "Municipal General Service Office (MGSO)",
+    "name": "Municipal General Service Office",
+    "short_name": "MGSO",
     "services": [
       "Request for Zoning Certificate (Business)",
       "Request for Zoning Certificate (Land Classification)",
@@ -75,13 +79,14 @@
       "Request for Driver's Trip Ticket"
     ]
   },
-  "15": {"name": "Municipal Disaster Risk Reduction Management Office (MDRRMO)"},
-  "16": {"name": "SEEDO-Market"},
-  "17": {"name": "SEEDO-Slaughter"},
-  "18": {"name": "Office of the Senior Citizen's Affairs (OSCA)"},
-  "19": {"name": "MMO-Tourism Section"},
+  "15": {"name": "Municipal Disaster Risk Reduction Management Office", "short_name": "MDRRMO"},
+  "16": {"name": "SEEDO-Market", "short_name": "MARKET"},
+  "17": {"name": "SEEDO-Slaughter", "short_name": "SLAUGHTER"},
+  "18": {"name": "Office of the Senior Citizen's Affairs", "short_name": "OSCA"},
+  "19": {"name": "MMO-Tourism Section", "short_name": "MMO-IT"},
   "20": {
     "name": "MMO-Information and Technology Section",
+    "short_name": "MMO-IT",
     "services": [
         "Request for tarpaulin layout",
         "Request for computer hardware repair",

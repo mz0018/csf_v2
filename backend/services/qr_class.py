@@ -66,7 +66,8 @@ class QRCode:
                     "name": data["name"],
                     "file": filepath,
                     "url": f"{base_url}/{filename}",
-                    "type": qr_type
+                    "type": qr_type,
+                    "short_name": data["short_name"]
                 })
         
         return results

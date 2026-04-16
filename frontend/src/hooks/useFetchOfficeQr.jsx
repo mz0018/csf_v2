@@ -18,7 +18,8 @@ export const useFetchOffice = ({ setIsGenerated, isGenerated }) => {
                 name: item.name,
                 url: item.url,
                 target_url: item.target_url,
-                type: item.type
+                type: item.type,
+                short_name: item.short_name
             }))
 
             const remoteImages = (response.data.remote || []).map(item => ({
@@ -26,7 +27,8 @@ export const useFetchOffice = ({ setIsGenerated, isGenerated }) => {
                 name: item.name,
                 url: item.url,
                 target_url: item.target_url,
-                type: item.type
+                type: item.type,
+                short_name: item.short_name
             }))
 
             setList({ local: localImages, remote: remoteImages })
