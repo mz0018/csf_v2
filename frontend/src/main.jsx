@@ -30,7 +30,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <TooltipProvider delayDuration={150}>
+    <TooltipProvider delayDuration={700}>
       <QRProvider>
         <RouterProvider router={router} />
       </QRProvider>

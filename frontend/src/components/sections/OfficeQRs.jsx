@@ -1,9 +1,8 @@
-import { useFetchOffice } from '../../hooks/useFetchOfficeQr'
+import { memo } from 'react'
 import { motion } from 'framer-motion'
 import { UseTooltip } from '@/helpers/UseTooltip'
-
-const QRList = ({ title, qrList, isLocal }) => {
-    if (!qrList.length) return null
+const QRListItem = memo(({ title, qrList }) => {
+    if (!qrList?.length) return null
     
     return (
         <div className="mb-8">
@@ -12,7 +11,6 @@ const QRList = ({ title, qrList, isLocal }) => {
                 {qrList.map((qr) => (
                     <UseTooltip key={qr.name} content={qr.name}>
                         <motion.li 
-                            key={`${qr.type}-${qr.office_id}`}
                             className="flex flex-col items-center text-center"
                             whileHover={{ scale: 1, y: -2 }}
                             whileTap={{ scale: 0.95 }}
@@ -22,37 +20,34 @@ const QRList = ({ title, qrList, isLocal }) => {
                                 <img
                                     src={qr.url}
                                     alt={qr.name}
+                                    loading="lazy"
                                     className="cursor-pointer w-[150px] h-[150px] object-contain"
                                 />
                             </div>
-                            {/* <p className="mt-2 text-xs text-gray-500 break-all">{qr.target_url}</p> */}
                         </motion.li>
                     </UseTooltip>
                 ))}
             </ul>
         </div>
     )
-}
-
-export const OfficeQR = ({ setIsGenerated, isGenerated }) => {
-    const { isLoading, list, message } = useFetchOffice({ setIsGenerated, isGenerated })
-
-    if (isLoading) return <>Please wait, preparing QR code.</>
+})
+export const QRList = memo(({ qrData, isGenerated }) => {
+    const hasLocal = qrData?.local?.length > 0
+    const hasRemote = qrData?.remote?.length > 0
+    const hasAnyQR = hasLocal || hasRemote
     
-    const hasAnyQR = list.local.length > 0 || list.remote.length > 0
-    
-    if (!hasAnyQR) {
+    if (!isGenerated || !hasAnyQR) {
         return (
             <small className="border border-yellow-500 text-yellow-500 bg-yellow-100 p-2 rounded text-center">
-                {message || "No QR codes generated yet. Click 'Generate' to create them."}
+                No QR codes generated yet. Click 'Generate' to create them.
             </small>
         )
     }
     
     return (
         <div>
-            <QRList title="Local QR Codes (Testing)" qrList={list.local} isLocal={true} />
-            <QRList title="Remote QR Codes (Production)" qrList={list.remote} isLocal={false} />
+            <QRListItem title="Local QR Codes (Testing)" qrList={qrData.local} />
+            <QRListItem title="Remote QR Codes (Production)" qrList={qrData.remote} />
         </div>
     )
-}
+})
