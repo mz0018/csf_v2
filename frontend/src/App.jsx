@@ -1,10 +1,22 @@
+import { useState } from 'react'
+import { ButtonOpenMainSidebar } from './components/buttons/ButtonOpenMainSidebar'
+import { Sidebar } from './components/sections/Sidebar'
+
 const App = () => {
 
-  return (
-    <>
-      Hello this is the index for client!
-    </>
-  )
-}
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
-export default App;
+  return (
+    <main className="flex h-screen relative">
+      
+      <div className="flex-1 bg-gray-200 p-4">
+        <ButtonOpenMainSidebar setIsSidebarOpen={setIsSidebarOpen} />
+      </div>
+
+      <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+
+    </main>
+  );
+};
+
+export default App
