@@ -16,7 +16,7 @@ const App = () => {
   return (
     <>
     <DisplayQRProvider>
-      <main className="flex h-screen relative">
+      <main className="flex relative">
         <AnimatePresence mode="sync">
           {isSidebarOpen && (
             <motion.div

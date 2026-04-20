@@ -6,18 +6,26 @@ const DisplayActiveQR = () => {
     return (
         <div className="flex items-center justify-center min-h-screen">
             {activeQR.img === null ? (
-                <div className="text-white text-start px-4 max-w-3xl">
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold uppercase leading-tight">
-                        Client Satisfactory Feedback Form
-                    </h2>
+                <div className="text-white px-4 max-w-4xl">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                        
+                        <img
+                            src="/img/logo.png"
+                            alt="Logo"
+                            className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-contain"
+                        />
 
-                    <p className="mt-4 text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300">
-                        Province of Nueva Vizcaya
-                    </p>
+                        <div className="text-center sm:text-start">
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold uppercase">
+                                Client Satisfactory Feedback Form
+                            </h2>
 
-                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300">
-                        Municipality of Solano
-                    </p>
+                            <p className="mt-4 text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300">
+                                Municipality of Solano Province of Nueva Vizcaya
+                            </p>
+
+                        </div>
+                    </div>
                 </div>
             ) : (
                 <div className="bg-black/70 p-9 text-center text-white rounded-sm">

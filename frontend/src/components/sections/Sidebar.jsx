@@ -17,7 +17,7 @@ export const Sidebar = memo(({ isSidebarOpen, setIsSidebarOpen, qrData }) => {
             initial={{ x: "100%" }}
             animate={{ x: isSidebarOpen ? 0 : "100%" }}
             transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
-            className="fixed top-0 right-0 h-full w-1/2 bg-black/70 text-white z-50"
+            className="fixed top-0 right-0 h-full w-1/2 bg-black/80 text-white z-50"
         >
             <div className="p-4 space-y-4 h-full overflow-y-auto">
                 <UseTooltip content={'Close sidebar'}>
