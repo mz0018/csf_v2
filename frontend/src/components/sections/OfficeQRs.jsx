@@ -2,13 +2,13 @@ import { memo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Select } from '../ui/Select'
 import { UseTooltip } from '@/helpers/UseTooltip'
-import { useSetQRDefault } from '@/hooks/useSetQRDefault'
+import { useQR } from '@/context/DisplayQRContext'
 
 const QRListItem = memo(({ title, qrList }) => {
 
     if (!qrList?.length) return null
 
-    const { activeQR, showAsDefault } = useSetQRDefault()
+    const { showAsDefault } = useQR()
     
     return (
         <div className="mb-8">
