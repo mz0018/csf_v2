@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react'
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
 
 const QRContext = createContext(null)
 
@@ -8,16 +9,38 @@ export const DisplayQRProvider = ({ children }) => {
         img: null
     })
 
+    const [open, setOpen] = useState(false)
+    const [pendingQR, setPendingQR] = useState(null)
+
     const showAsDefault = (name, url) => {
-        const confirmed = window.confirm(`Set "${name}" as default QR?`)
-        if (confirmed) {
-            setActiveQR({ name, img: url })
+        setPendingQR({ name, url })
+        setOpen(true)
+    }
+
+    const confirmSetDefault = () => {
+        if (pendingQR) {
+        setActiveQR({
+            name: pendingQR.name,
+            img: pendingQR.url
+        })
         }
+
+        setPendingQR(null)
+        setOpen(false)
     }
 
     return (
         <QRContext.Provider value={{ activeQR, showAsDefault }}>
-            {children}
+        
+        {children}
+
+        <ConfirmDialog
+            open={open}
+            onOpenChange={setOpen}
+            title={`Set "${pendingQR?.name}" as default QR?`}
+            onConfirm={confirmSetDefault}
+        />
+
         </QRContext.Provider>
     )
 }
