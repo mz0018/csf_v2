@@ -1,9 +1,14 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { motion } from 'framer-motion'
+import { Select } from '../ui/Select'
 import { UseTooltip } from '@/helpers/UseTooltip'
+import { useSetQRDefault } from '@/hooks/useSetQRDefault'
 
 const QRListItem = memo(({ title, qrList }) => {
+
     if (!qrList?.length) return null
+
+    const { activeQR, showAsDefault } = useSetQRDefault()
     
     return (
         <div className="mb-8">
@@ -23,6 +28,7 @@ const QRListItem = memo(({ title, qrList }) => {
                                     alt={qr.name}
                                     loading="lazy"
                                     className="cursor-pointer w-[150px] h-[150px] object-contain"
+                                    onClick={() => showAsDefault(qr.name, qr.url)}
                                 />
                             </div>
                         </motion.li>
@@ -32,7 +38,16 @@ const QRListItem = memo(({ title, qrList }) => {
         </div>
     )
 })
+
 export const QRList = memo(({ qrData, isGenerated }) => {
+    const [activeQR, setActiveQR] = useState('production')
+
+    const select_options = [
+        { label: "Local QR", value: "local" },
+        { label:"Production QR", value: "production" },
+        { label: "Kiosk Mode", value: "kiosk" },
+    ]
+
     const hasLocal = qrData?.local?.length > 0
     const hasRemote = qrData?.remote?.length > 0
     const hasAnyQR = hasLocal || hasRemote
@@ -47,8 +62,26 @@ export const QRList = memo(({ qrData, isGenerated }) => {
     
     return (
         <div>
-            <QRListItem title="Local QR Codes (Testing)" qrList={qrData.local} />
-            <QRListItem title="Remote QR Codes (Production)" qrList={qrData.remote} />
+            <Select 
+                value={activeQR} 
+                onChange={(e) => setActiveQR(e.target.value)}
+            >
+                {select_options.map(opt => (
+                    <option className="text-gray-500" key={opt.label} value={opt.value}>{opt.label}</option>
+                ))}
+            </Select>
+
+            {activeQR === 'production' ? (
+                <QRListItem 
+                    title="Remote QR Codes (Production)" 
+                    qrList={qrData.remote}
+                />
+            ) : (
+                <QRListItem 
+                    title="Local QR Codes (Testing)" 
+                    qrList={qrData.local}
+                />
+            )}
         </div>
     )
 })
