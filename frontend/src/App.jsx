@@ -30,10 +30,18 @@ const App = () => {
           )}
         </AnimatePresence>
         
-        <div className="flex-1 p-4 bg-[url('/img/main.webp')] bg-cover bg-no-repeat">
-          <ButtonOpenMainSidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
-          <DisplayActiveQR />
+        <div className="relative flex-1 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/img/main.webp')] bg-cover bg-no-repeat blur-md scale-105"></div>
+          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="relative z-10 p-4">
+            <ButtonOpenMainSidebar
+              isSidebarOpen={isSidebarOpen}
+              setIsSidebarOpen={setIsSidebarOpen}
+            />
+            <DisplayActiveQR />
+          </div>
         </div>
+
         <AnimatePresence mode="sync">
           {isSidebarOpen && (
             <Suspense fallback={null}>
