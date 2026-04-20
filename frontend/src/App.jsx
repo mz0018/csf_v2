@@ -15,7 +15,7 @@ const App = () => {
 
   return (
     <>
-    <DisplayQRProvider>
+    <DisplayQRProvider setIsSidebarOpen={setIsSidebarOpen} >
       <main className="flex relative">
         <AnimatePresence mode="sync">
           {isSidebarOpen && (

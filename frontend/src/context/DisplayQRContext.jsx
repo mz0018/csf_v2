@@ -1,9 +1,9 @@
 import { createContext, useContext, useState } from 'react'
-import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
+import { ConfirmDialog } from '@/components/modals/ConfirmDialog'
 
 const QRContext = createContext(null)
 
-export const DisplayQRProvider = ({ children }) => {
+export const DisplayQRProvider = ({ children, setIsSidebarOpen }) => {
     const [activeQR, setActiveQR] = useState({
         name: '',
         img: null
@@ -14,6 +14,7 @@ export const DisplayQRProvider = ({ children }) => {
 
     const showAsDefault = (name, url) => {
         setPendingQR({ name, url })
+        if (setIsSidebarOpen) setIsSidebarOpen(false)
         setOpen(true)
     }
 

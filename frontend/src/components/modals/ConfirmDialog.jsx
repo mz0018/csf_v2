@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { Buttons } from './Buttons'
+import { Buttons } from '../ui/Buttons'
 
 export const ConfirmDialog = ({
   open,
@@ -10,7 +10,7 @@ export const ConfirmDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/50" />
+        <Dialog.Overlay className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[50]" />
 
         <Dialog.Content
         className="fixed left-1/2 top-1/2 w-[320px] -translate-x-1/2 -translate-y-1/2 rounded bg-white p-4 shadow z-[60]"
