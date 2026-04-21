@@ -1,9 +1,34 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
+from starlette.types import Scope, Receive, Send
+import os
+import hashlib
 from controllers import client_controller
 from core.auto_migrate import create_tables, sync_columns
-import os
+
+
+class CacheControlStaticFiles(StaticFiles):
+    """Static files with caching headers for QR code images"""
+    
+    async def get_response(self, path: str, scope: Scope):
+        response = await super().get_response(path, scope)
+        if response:
+            # Add caching headers for QR images (cache for 1 year since they're static)
+            response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+            # Add ETag for validation
+            if self.directory and path:
+                file_path = os.path.join(str(self.directory), path)
+                if os.path.exists(file_path):
+                    # Simple hash based on file path and modification time
+                    stat = os.stat(file_path)
+                    etag_value = hashlib.md5(
+                        f"{file_path}:{stat.st_mtime}:{stat.st_size}".encode()
+                    ).hexdigest()
+                    response.headers["ETag"] = f'"{etag_value}"'
+        return response
+
 
 os.makedirs("qrcodes/local", exist_ok=True)
 os.makedirs("qrcodes/remote", exist_ok=True)
@@ -14,8 +39,8 @@ app = FastAPI(
     version="2.0.0"
 )
 
-app.mount("/qrcodes/local", StaticFiles(directory="qrcodes/local"), name="qrcodes_local")
-app.mount("/qrcodes/remote", StaticFiles(directory="qrcodes/remote"), name="qrcodes_remote")
+app.mount("/qrcodes/local", CacheControlStaticFiles(directory="qrcodes/local"), name="qrcodes_local")
+app.mount("/qrcodes/remote", CacheControlStaticFiles(directory="qrcodes/remote"), name="qrcodes_remote")
 
 @app.on_event("startup")
 def startup_event():
