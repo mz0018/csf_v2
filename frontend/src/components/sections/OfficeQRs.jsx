@@ -1,5 +1,4 @@
 import { memo, useState } from 'react'
-import { motion } from 'framer-motion'
 import { Select } from '../ui/Select'
 import { UseTooltip } from '@/helpers/UseTooltip'
 import { useQR } from '@/context/DisplayQRContext'
@@ -16,11 +15,7 @@ const QRListItem = memo(({ title, qrList }) => {
             <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {qrList.map((qr) => (
                     <UseTooltip key={qr.name} content={qr.name}>
-                        <motion.li 
-                            className="flex flex-col items-center text-center"
-                            whileHover={{ scale: 1, y: -2 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
+                        <li className="flex flex-col items-center text-center hover:scale-105 active:scale-95 transition-transform">
                             <p className="mb-2 text-xs whitespace-nowrap">{qr.short_name}</p>
                             <div className="p-1 bg-white rounded-sm">
                                 <img
@@ -31,7 +26,7 @@ const QRListItem = memo(({ title, qrList }) => {
                                     onClick={() => showAsDefault(qr.name, qr.url)}
                                 />
                             </div>
-                        </motion.li>
+                        </li>
                     </UseTooltip>
                 ))}
             </ul>

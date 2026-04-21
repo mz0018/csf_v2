@@ -1,6 +1,5 @@
 import { startTransition, memo, useEffect } from 'react'
 import { PanelRight } from 'lucide-react'
-import { motion } from 'framer-motion'
 import { UseTooltip } from '@/helpers/UseTooltip'
 import { QRList } from './OfficeQRs'
 import { useQR } from '@/context/QRContext'
@@ -27,27 +26,20 @@ export const Sidebar = memo(({ isSidebarOpen, setIsSidebarOpen, qrData }) => {
     }, [isSidebarOpen])
 
     return (
-        <motion.aside
-            initial={{ x: "100%" }}
-            animate={{ x: isSidebarOpen ? 0 : "100%" }}
-            transition={{ type: "tween", duration: 0.2, ease: "easeOut" }}
-            className="fixed top-0 right-0 h-full w-full lg:w-1/2 bg-black/80 text-white z-50"
-        >
+        <aside className={`fixed top-0 right-0 h-full w-full lg:w-1/2 bg-black/80 text-white z-50 transition-transform duration-200 ease-out ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             <div className="p-4 space-y-4 h-full overflow-y-auto">
 
                 <UseTooltip content={'Close sidebar'}>
-                    <motion.button
+                    <button
                         onClick={handleClose}
-                        className="cursor-pointer"
-                        whileHover={{ scale: 1, y: -2 }}
-                        whileTap={{ scale: 0.95 }}
+                        className="cursor-pointer hover:scale-110 active:scale-95 transition-transform"
                     >
                         <PanelRight size={24} color='white' />
-                    </motion.button>
+                    </button>
                 </UseTooltip>
 
                 <QRList qrData={qrData} isGenerated={isGenerated} />
             </div>
-        </motion.aside>
+        </aside>
     )
 })
