@@ -26,7 +26,7 @@ export const Sidebar = memo(({ isSidebarOpen, setIsSidebarOpen, qrData }) => {
     }, [isSidebarOpen])
 
     return (
-        <aside className={`fixed top-0 right-0 h-full w-full lg:w-1/2 bg-black/80 text-white z-50 transition-transform duration-200 ease-out ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <aside className={`fixed top-0 right-0 h-full w-full lg:w-1/2 bg-black/80 backdrop-blur-md text-white z-50 transition-transform duration-200 ease-out ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             <div className="p-4 space-y-4 h-full overflow-y-auto">
 
                 <UseTooltip content={'Close sidebar'}>

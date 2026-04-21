@@ -2,6 +2,7 @@ import { memo, useState } from 'react'
 import { Select } from '../ui/Select'
 import { UseTooltip } from '@/helpers/UseTooltip'
 import { useQR } from '@/context/DisplayQRContext'
+import { AuthenticateForm } from '../pages/AuthenticateForm'
 
 const QRListItem = memo(({ title, qrList }) => {
 
@@ -66,16 +67,22 @@ export const QRList = memo(({ qrData, isGenerated }) => {
                 ))}
             </Select>
 
-            {activeQR === 'production' ? (
+            {activeQR === 'production' && (
                 <QRListItem 
                     title="Remote QR Codes (Production)" 
                     qrList={qrData.remote}
                 />
-            ) : (
+            )}
+
+            {activeQR === 'local' && (
                 <QRListItem 
                     title="Local QR Codes (Testing)" 
                     qrList={qrData.local}
                 />
+            )}
+
+            {activeQR === 'kiosk' && (
+                <AuthenticateForm />
             )}
         </div>
     )
