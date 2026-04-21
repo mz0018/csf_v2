@@ -13,7 +13,7 @@ const QRListItem = memo(({ title, qrList }) => {
     return (
         <div className="mb-8">
             <h3 className="text-lg font-semibold mb-4">{title}</h3>
-            <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {qrList.map((qr) => (
                     <UseTooltip key={qr.name} content={qr.name}>
                         <motion.li 
