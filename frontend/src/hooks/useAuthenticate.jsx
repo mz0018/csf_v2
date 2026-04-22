@@ -1,17 +1,23 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { api } from '@/services/api'
+import { useAuth } from '@/context/AuthContext'
 
 export const useAuthenticate = () => {
-
     const [errors, setErrors] = useState({
         username: '',
         password: '',
         general: ''
     })
-
+    const [loading, setLoading] = useState(false)
+    
     const [formData, setFormData] = useState({
         username: '',
         password: ''
     })
+
+    const { refreshUser } = useAuth()
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -28,7 +34,7 @@ export const useAuthenticate = () => {
         }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         let newErrors = {
@@ -50,15 +56,24 @@ export const useAuthenticate = () => {
             return
         }
 
+        setLoading(true)
+        
         try {
-            console.log('Form submitted:', formData)
+            const res = await api.post('/signin', formData)
+            if (res.data.success) {
+                await refreshUser()
+                navigate('/')
+            }
         } catch (err) {
+            const errorMessage = err.response?.data?.error || 'Something went wrong!'
             setErrors((prev) => ({
                 ...prev,
-                general: 'Something went wrong!'
+                general: errorMessage
             }))
+        } finally {
+            setLoading(false)
         }
     }
 
-    return { formData, handleChange, handleSubmit, errors }
+    return { formData, handleChange, handleSubmit, errors, loading }
 }
