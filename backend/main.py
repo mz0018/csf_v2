@@ -6,6 +6,7 @@ from starlette.types import Scope, Receive, Send
 import os
 import hashlib
 from controllers import client_controller
+from controllers import hr_controller
 from core.auto_migrate import create_tables, sync_columns
 
 
@@ -15,13 +16,10 @@ class CacheControlStaticFiles(StaticFiles):
     async def get_response(self, path: str, scope: Scope):
         response = await super().get_response(path, scope)
         if response:
-            # Add caching headers for QR images (cache for 1 year since they're static)
             response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
-            # Add ETag for validation
             if self.directory and path:
                 file_path = os.path.join(str(self.directory), path)
                 if os.path.exists(file_path):
-                    # Simple hash based on file path and modification time
                     stat = os.stat(file_path)
                     etag_value = hashlib.md5(
                         f"{file_path}:{stat.st_mtime}:{stat.st_size}".encode()
@@ -60,3 +58,4 @@ app.add_middleware(
 )
 
 app.include_router(client_controller.router)
+app.include_router(hr_controller.router)

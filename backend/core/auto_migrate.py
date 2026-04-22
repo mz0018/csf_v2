@@ -1,6 +1,7 @@
 from sqlalchemy import inspect, text
 from core.database import engine
 from models.feedback_model import Feedback
+from models.user_model import Users
 from core.database import Base
 def create_tables():
 
@@ -8,7 +9,7 @@ def create_tables():
     print("Tables created successfully!")
 def sync_columns():
 
-    models = [Feedback]  # Add future models here
+    models = [Feedback, Users]
     
     with engine.connect() as conn:
         for model in models:

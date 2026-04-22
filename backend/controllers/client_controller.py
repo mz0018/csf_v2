@@ -109,22 +109,4 @@ def get_specific_office(office_id: str):
     return { "error": "Office not found" }
 
 
-# @router.get("/qrcode/{office_id}")
-# def get_qrcode(office_id: str, request: Request, type: str = "local"):
-#     qr = QRCode()
-#     qr_list = qr.get_all_qrcode(type)
-
-#     base_url = BASE_URL_LOCAL if type == "local" else BASE_URL_REMOTE
-    
-#     for item in qr_list:
-#         if item["office_id"] == office_id:
-#             return {
-#                 "office_id": item["office_id"],
-#                 "name": item["name"],
-#                 "url": f"{base_url}/qrcodes/{type}/{os.path.basename(item['file'])}",
-#                 "target_url": f"{base_url}/{office_id}",
-#                 "type": type
-#             }
-    
-#     return {"error": "Office not found"}
 
