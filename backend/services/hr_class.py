@@ -1,29 +1,30 @@
 from sqlalchemy.orm import Session
+from passlib.context import CryptContext
+
 from core.database import SessionLocal
 from models.user_model import Users
-from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["argon2"])
 
-class HR:
 
-    def signup(self, body):
+class HR:
+    def signup(self, data: dict) -> dict:
         db: Session = SessionLocal()
 
         try:
             existing_user = db.query(Users).filter(
-                Users.username == body['username']
+                Users.username == data["username"]
             ).first()
 
             if existing_user:
                 return {"success": False, "error": "Username already exists"}
 
-            hashed_password = pwd_context.hash(body['password'])
+            hashed_password = pwd_context.hash(data["password"])
 
             new_user = Users(
-                username=body['username'],
+                username=data["username"],
                 password=hashed_password,
-                user_type=body['user_type']
+                user_type=data["user_type"],
             )
 
             db.add(new_user)

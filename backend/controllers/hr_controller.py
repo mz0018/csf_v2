@@ -1,14 +1,12 @@
-from fastapi import APIRouter, Request, Query
-from dotenv import load_dotenv
-
+from fastapi import APIRouter
 from services.hr_class import HR
+from schemas.users_schema import UserCreate
 
-load_dotenv()
 router = APIRouter()
 
+
 @router.post("/signup")
-async def signup(request: Request):
-    body = await request.json()
+async def signup(data: UserCreate):
     hr = HR()
-    result = hr.signup(body)
+    result = hr.signup(data.model_dump())
     return result
