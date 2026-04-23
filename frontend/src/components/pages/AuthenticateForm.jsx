@@ -6,7 +6,7 @@ import { ErrorMessage } from '../ui/ErrorMessage'
 
 export const AuthenticateForm = () => {
 
-    const { formData, handleChange, handleSubmit, errors, loading } = useAuthenticate()
+    const { formData, handleChange, handleSubmit, errors, loading, reachLimit } = useAuthenticate()
 
     const inputs = [
         { name: "username", placeholder: "Enter your username here", type: "text", value: formData.username },
@@ -27,7 +27,7 @@ export const AuthenticateForm = () => {
                                     value={field.value}
                                     onChange={handleChange}
                                     className={`w-full p-5 border rounded 
-                                        ${errors[field.name] ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
+                                        ${errors[field.name] || errors.general ? 'border-red-500 focus:ring-red-500' : 'border-gray-300'}`}
                                 />
                                 <ErrorMessage message={errors[field.name]} />
                             </div>
@@ -35,8 +35,8 @@ export const AuthenticateForm = () => {
                         {errors.general && (
                             <ErrorMessage message={errors.general} />
                         )}
-                        <Buttons type="submit" disabled={loading} className="w-full p-5">
-                            {loading ? 'Signing in...' : 'Sign In'}
+                        <Buttons type="submit" disabled={loading || reachLimit} className="w-full p-5">
+                            {reachLimit ? 'Too many attempts' : loading ? 'Signing in...' : 'Sign In'}
                         </Buttons>
                     </form>
                 </ClientFormUI>

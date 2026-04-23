@@ -10,7 +10,7 @@ export const useAuthenticate = () => {
         general: ''
     })
     const [loading, setLoading] = useState(false)
-    
+    const [reachLimit, setReachLimit] = useState(false)
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -30,12 +30,12 @@ export const useAuthenticate = () => {
         setErrors((prev) => ({
             ...prev,
             [name]: '',
-            general: ''
         }))
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        if (reachLimit) return
 
         let newErrors = {
             username: '',
@@ -65,7 +65,12 @@ export const useAuthenticate = () => {
                 navigate('/')
             }
         } catch (err) {
-            const errorMessage = err.response?.data?.error || 'Something went wrong!'
+            if (err.response?.status === 429) {
+                setReachLimit(true)
+            } else {
+                setReachLimit(false)
+            }
+            const errorMessage = err.response?.data?.error || err.response?.data?.detail || 'Something went wrong!'
             setErrors((prev) => ({
                 ...prev,
                 general: errorMessage
@@ -75,5 +80,5 @@ export const useAuthenticate = () => {
         }
     }
 
-    return { formData, handleChange, handleSubmit, errors, loading }
+    return { formData, handleChange, handleSubmit, errors, loading, reachLimit }
 }

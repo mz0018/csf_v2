@@ -50,7 +50,7 @@ def rate_limit(key: str = "default"):
                 logger.warning(f"Rate limit exceeded for {identifier} on '{key}'")
                 raise HTTPException(
                     status_code=429,
-                    detail=f"Rate limit exceeded. Try again in {config.window_seconds} seconds."
+                    detail=f"Too many login attempts. Please try again later."
                 )
 
             result = await func(*args, **kwargs)

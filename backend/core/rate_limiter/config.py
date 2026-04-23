@@ -8,6 +8,11 @@ class RateLimitConfig:
     key_prefix: str
 
 RATE_LIMITS: Dict[str, RateLimitConfig] = {
+    "signin": RateLimitConfig(
+        max_requests=5,
+        window_seconds=900,
+        key_prefix="rate:signin"
+    ),
     "feedback_submission": RateLimitConfig(
         max_requests=3,
         window_seconds=60,

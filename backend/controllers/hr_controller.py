@@ -1,11 +1,12 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import JSONResponse
 from services.hr_class import HR
 from core.auth import set_auth_cookies, verify_token, clear_auth_cookies, get_token_from_request
 from core.config import settings
+from core.rate_limiter import rate_limit
 from schemas.users_schema import UserCreate, SignInRequest
 
-router = APIRouter()
+router = APIRouter()    
 
 
 @router.post("/signup")
@@ -13,15 +14,16 @@ async def signup(data: UserCreate):
     hr = HR()
     result = hr.signup(data.model_dump())
     return result
-
+ 
 
 @router.post("/signin")
-async def signin(data: SignInRequest):
+@rate_limit("signin")
+async def signin(request: Request, data: SignInRequest):
     hr = HR()
     result = hr.signin(data.model_dump())
     
     if not result["success"]:
-        return result
+        raise HTTPException(status_code=401, detail=result.get("error", "Invalid credentials"))
     
     response_data = {"success": True, "user": result["user"]}
     response = JSONResponse(content=response_data)
