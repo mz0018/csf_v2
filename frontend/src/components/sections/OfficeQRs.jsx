@@ -3,6 +3,7 @@ import { Select } from '../ui/Select'
 import { UseTooltip } from '@/helpers/UseTooltip'
 import { useQR } from '@/context/DisplayQRContext'
 import { AuthenticateForm } from '../pages/AuthenticateForm'
+import { useAuth } from '@/context/AuthContext'
 
 const QRListItem = memo(({ title, qrList }) => {
 
@@ -36,6 +37,8 @@ const QRListItem = memo(({ title, qrList }) => {
 })
 
 export const QRList = memo(({ qrData, isGenerated }) => {
+    const { user } = useAuth()
+
     const [activeQR, setActiveQR] = useState('production')
 
     const select_options = [
@@ -84,6 +87,7 @@ export const QRList = memo(({ qrData, isGenerated }) => {
             {activeQR === 'kiosk' && (
                 <AuthenticateForm />
             )}
+
         </div>
     )
 })

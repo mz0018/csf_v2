@@ -12,7 +12,12 @@ config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
+
+"Add the new model here if theres a new model"
 from models.feedback_model import Feedback
+from models.user_model import Users
+
 from core.database import Base
 target_metadata = Base.metadata
 def run_migrations_offline() -> None:

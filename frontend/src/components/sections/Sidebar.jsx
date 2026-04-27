@@ -2,9 +2,12 @@ import { startTransition, memo, useEffect } from 'react'
 import { PanelRight } from 'lucide-react'
 import { UseTooltip } from '@/helpers/UseTooltip'
 import { QRList } from './OfficeQRs'
+import { useAuth } from '@/context/AuthContext'
 import { useQR } from '@/context/QRContext'
+import { OfficeAdmin } from '../pages/OfficeAdmin'
 
 export const Sidebar = memo(({ isSidebarOpen, setIsSidebarOpen, qrData }) => {
+    const { user } = useAuth()
     const { isGenerated } = useQR()
 
     const handleClose = () => {
@@ -38,7 +41,12 @@ export const Sidebar = memo(({ isSidebarOpen, setIsSidebarOpen, qrData }) => {
                     </button>
                 </UseTooltip>
 
-                <QRList qrData={qrData} isGenerated={isGenerated} />
+                {user ? (
+                    <OfficeAdmin />
+                ) : (
+                    <QRList qrData={qrData} isGenerated={isGenerated} />
+                )}
+
             </div>
         </aside>
     )
