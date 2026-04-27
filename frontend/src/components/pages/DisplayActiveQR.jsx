@@ -28,15 +28,12 @@ const DisplayActiveQR = () => {
                     </div>
                 </div>
             ) : (
-                <div className="bg-black/70 p-9 text-center text-white rounded-sm">
+                <div className="bg-black/70 p-9 text-center text-white rounded-sm aspect-square flex flex-col justify-center">
                     <img
-                        className="rounded-sm mx-auto w-[400px] sm:w-[500px] md:w-[600px]"
-                        src={activeQR.img}
-                        alt={activeQR.name}
+                    className="w-full max-w-md mx-auto aspect-square object-cover rounded-sm"
+                    src={activeQR.img}
+                    alt={activeQR.name}
                     />
-                    <p className="mt-5 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold">
-                        {activeQR.name}
-                    </p>
                 </div>
             )}
         </div>

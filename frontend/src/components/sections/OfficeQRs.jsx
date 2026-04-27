@@ -18,12 +18,12 @@ const QRListItem = memo(({ title, qrList }) => {
                     <UseTooltip key={qr.name} content={qr.name}>
                         <li className="flex flex-col items-center text-center hover:scale-105 active:scale-95 transition-transform">
                             <p className="mb-2 text-xs whitespace-nowrap">{qr.short_name}</p>
-                            <div className="p-1 bg-white rounded-sm">
+                            <div className="p-1 bg-white rounded-sm aspect-square w-full">
                                 <img
                                     src={qr.url}
                                     alt={qr.name}
                                     loading="lazy"
-                                    className="cursor-pointer w-[150px] h-[150px] object-contain"
+                                    className="w-full h-full cursor-pointer object-cover rounded-sm"
                                     onClick={() => showAsDefault(qr.name, qr.url)}
                                 />
                             </div>
