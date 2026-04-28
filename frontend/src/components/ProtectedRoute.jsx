@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
 
-export const ProtectedRoute = ({ children }) => {
+export const ProtectedRoute = ({ children, requiredUserType }) => {
     const { user, loading } = useAuth()
     const location = useLocation()
 
@@ -15,6 +15,10 @@ export const ProtectedRoute = ({ children }) => {
 
     if (!user) {
         return <Navigate to="/signin" state={{ from: location }} replace />
+    }
+
+    if (requiredUserType && user.user_type !== requiredUserType) {
+        return <Navigate to="/signin" replace />
     }
 
     return children

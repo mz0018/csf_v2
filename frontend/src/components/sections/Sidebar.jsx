@@ -5,9 +5,11 @@ import { QRList } from './OfficeQRs'
 import { useAuth } from '@/context/AuthContext'
 import { useQR } from '@/context/QRContext'
 import { OfficeAdmin } from '../pages/OfficeAdmin'
+import { useUserType } from '@/hooks/useUserType'
 
 export const Sidebar = memo(({ isSidebarOpen, setIsSidebarOpen, qrData }) => {
     const { user } = useAuth()
+    const { isOfficeAdmin } = useUserType()
     const { isGenerated } = useQR()
 
     const handleClose = () => {
@@ -42,7 +44,9 @@ export const Sidebar = memo(({ isSidebarOpen, setIsSidebarOpen, qrData }) => {
                 </UseTooltip>
 
                 {user ? (
-                    <OfficeAdmin />
+                    isOfficeAdmin ? (
+                        <OfficeAdmin />
+                    ) : null
                 ) : (
                     <QRList qrData={qrData} isGenerated={isGenerated} />
                 )}

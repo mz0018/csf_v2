@@ -16,7 +16,7 @@ export const useAuthenticate = () => {
         password: ''
     })
 
-    const { refreshUser } = useAuth()
+    const { refreshUser, user } = useAuth()
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -61,8 +61,13 @@ export const useAuthenticate = () => {
         try {
             const res = await api.post('/signin', formData)
             if (res.data.success) {
+                const { user_type } = res.data.user
                 await refreshUser()
-                navigate('/')
+                if (user_type === 'hr_admin') {
+                    navigate('/hr-dashboard')
+                } else {
+                    navigate('/')
+                }
             }
         } catch (err) {
             if (err.response?.status === 429) {

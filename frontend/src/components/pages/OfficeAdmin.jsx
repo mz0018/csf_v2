@@ -3,7 +3,6 @@ import { ClientFormUI } from '../ui/ClientFormUI'
 import { Buttons } from '../ui/Buttons'
 export const OfficeAdmin = () => {
     const { user, signOut } = useAuth()
-    console.log(user)
 
     if (!user) return null
 

@@ -14,7 +14,11 @@ const PageNotFound = lazy(() => import('./components/pages/PageNotFound.jsx'))
 const InfoTechPage = lazy(() => import('./components/pages/IT/InfoTechPage.jsx'))
 const ClientFeedbackForm = lazy(() => import('./components/pages/Client/ClientFeedbackForm.jsx'))
 const SuccessFeedback = lazy(() => import('./components/pages/SuccessFeedback.jsx'))
-const AuthenticateForm = lazy(() => import('./components/pages/AuthenticateForm.jsx'))
+const AuthenticateForm = lazy(() => 
+    import('./components/pages/AuthenticateForm.jsx')
+        .then(module => ({ default: module.AuthenticateForm }))
+)
+const HRDashboard = lazy(() => import('./components/pages/HRDashboard.jsx'))
 
 const router = createBrowserRouter([
   { path: "/signin", element: <AuthenticateForm />},
@@ -25,6 +29,16 @@ const router = createBrowserRouter([
       <ProtectedRoute>
         <Suspense fallback={<>Loading IT Page!</>}>
           <InfoTechPage />
+        </Suspense>
+      </ProtectedRoute>
+    )
+  },
+  { 
+    path: "/hr-dashboard", 
+    element: (
+      <ProtectedRoute requiredUserType="hr_admin">
+        <Suspense fallback={<>Loading HR Dashboard!</>}>
+          <HRDashboard />
         </Suspense>
       </ProtectedRoute>
     )

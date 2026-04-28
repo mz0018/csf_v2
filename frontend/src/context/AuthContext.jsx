@@ -35,9 +35,7 @@ export const AuthProvider = ({ children }) => {
         setUser(null)
     }
 
-    const refreshUser = () => {
-        fetchUser()
-    }
+    const refreshUser = () => fetchUser()
 
     return (
         <AuthContext.Provider value={{ user, loading, signOut, refreshUser }}>
