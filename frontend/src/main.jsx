@@ -8,7 +8,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { QRProvider } from './context/QRContext.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
-import { ProtectedRoute } from './components/ProtectedRoute.jsx'
+import { ProtectedRoute, AdminProtectedRoute } from './components/ProtectedRoute.jsx'
 import { DisplayQRProvider } from './context/DisplayQRContext'
 
 const PageNotFound = lazy(() => import('./components/pages/PageNotFound.jsx'))
@@ -24,29 +24,41 @@ const HRDashboard = lazy(() => import('./components/pages/HRDashboard.jsx'))
 const router = createBrowserRouter([
   { path: "/signin", element: <AuthenticateForm />},
   { path: "/", element: <App />},
-  { 
-    path: "/infotech", 
+  {
+    path: "/infotech",
     element: (
-      <ProtectedRoute requiredUserType={"it_admin"}>
-        <Suspense fallback={<>Loading IT Page!</>}>
-          <QRProvider>
-            <DisplayQRProvider>
-              <InfoTechPage />
-            </DisplayQRProvider>
-          </QRProvider>
-        </Suspense>
-      </ProtectedRoute>
-    )
+      <AdminProtectedRoute requiredUserType="it_admin" />
+    ),
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<>Loading IT Page!</>}>
+            <QRProvider>
+              <DisplayQRProvider>
+                <InfoTechPage />
+              </DisplayQRProvider>
+            </QRProvider>
+          </Suspense>
+        )
+      }
+    ]
   },
-  { 
-    path: "/hr-dashboard", 
+  {
+    path: "/hr-dashboard",
     element: (
-      <ProtectedRoute requiredUserType="hr_admin">
-        <Suspense fallback={<>Loading HR Dashboard!</>}>
-          <HRDashboard />
-        </Suspense>
-      </ProtectedRoute>
-    )
+      <AdminProtectedRoute requiredUserType="hr_admin" />
+    ),
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<>Loading HR Dashboard!</>}>
+            <HRDashboard />
+          </Suspense>
+        )
+      }
+    ]
   },
   { path: "/client/:office", element: <ClientFeedbackForm />},
   { path: "/client/success-feedback/:office", element: <SuccessFeedback />},
