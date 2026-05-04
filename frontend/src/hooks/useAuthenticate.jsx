@@ -65,6 +65,8 @@ export const useAuthenticate = () => {
                 await refreshUser()
                 if (user_type === 'hr_admin') {
                     navigate('/hr-dashboard')
+                } else if (user_type === 'it_admin') {
+                    navigate('/infotech')
                 } else {
                     navigate('/')
                 }

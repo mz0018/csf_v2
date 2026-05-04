@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { QRProvider } from './context/QRContext.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { ProtectedRoute } from './components/ProtectedRoute.jsx'
+import { DisplayQRProvider } from './context/DisplayQRContext'
 
 const PageNotFound = lazy(() => import('./components/pages/PageNotFound.jsx'))
 const InfoTechPage = lazy(() => import('./components/pages/IT/InfoTechPage.jsx'))
@@ -26,9 +27,13 @@ const router = createBrowserRouter([
   { 
     path: "/infotech", 
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute requiredUserType={"it_admin"}>
         <Suspense fallback={<>Loading IT Page!</>}>
-          <InfoTechPage />
+          <QRProvider>
+            <DisplayQRProvider>
+              <InfoTechPage />
+            </DisplayQRProvider>
+          </QRProvider>
         </Suspense>
       </ProtectedRoute>
     )
